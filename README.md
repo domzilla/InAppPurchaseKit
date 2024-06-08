@@ -7,15 +7,18 @@ InAppPurchaseKit is a Swift wrapper around the StoreKit2 APIs with full Obj-C su
 
 Setup the transaction observer as early as possible after app launch:
 
+```objc
 	- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions 
 	{
 		[[IAPTransactionObserver shared] startObservingUpdates];
 		
 		return YES;
-	} 
+	}
+```
 
 Load your products:
 
+```objc
 	[IAPProduct productsFor:@[@"net.domzilla.iaptest.consumable.product1",
 						      @"net.domzilla.iaptestsubscriptions.subscription1.yearly"]
 		completionHandler:^(NSArray<IAPProduct *> * _Nullable products, NSError * _Nullable error) {
@@ -25,9 +28,11 @@ Load your products:
 		else
 			NSLog(@"Error: %@", error);
 	}];
-	
+```
+
 Purchase:
 
+```objc
 	IAPProduct *product = [self.products objectAtIndex:i];
 	[product purchaseWithCompletionHandler:^(IAPTransaction * _Nullable transaction, IAPPurchaseResult result, NSError * _Nullable error) {
 		
@@ -40,9 +45,10 @@ Purchase:
 		else
 			NSLog(@"Error: %@", error);
 	}];
-	
+```
 Check for current entitlements:
 
+```objc
 	[IAPTransaction currentEntitlementsWithCompletionHandler:^(NSArray<IAPTransaction *> *transactions) {
 	
 		NSLog(@"Current Entitlements:");
@@ -51,5 +57,6 @@ Check for current entitlements:
 			NSLog(@"%@", [transaction description]);
 		}
 	}];
+```
 
 Also have a look at the example project!
