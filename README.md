@@ -19,9 +19,8 @@ Setup the transaction observer as early as possible after app launch:
 Load your products:
 
 ```objc
-[IAPProduct productsFor:@[@"net.domzilla.iaptest.consumable.product1",
-					      @"net.domzilla.iaptestsubscriptions.subscription1.yearly"]
-	completionHandler:^(NSArray<IAPProduct *> * _Nullable products, NSError * _Nullable error) {
+[IAPProduct productsFor:@[@"net.domzilla.iaptest.consumable.product1", @"net.domzilla.iaptestsubscriptions.subscription1.yearly"]
+	  completionHandler:^(NSArray<IAPProduct *> * _Nullable products, NSError * _Nullable error) {
 	
 	if (!error)
 		self.products = products;
