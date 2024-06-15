@@ -20,6 +20,7 @@
 		F2E943772C11A9750000170A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2E943762C11A9750000170A /* Foundation.framework */; };
 		F2E943792C11A97F0000170A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2E943782C11A97F0000170A /* StoreKit.framework */; };
 		F2E9437B2C11A98C0000170A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2E9437A2C11A98C0000170A /* UIKit.framework */; platformFilter = ios; };
+		F2E9458D2C1D885D0000170A /* IAPError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E9458C2C1D885D0000170A /* IAPError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		F2E943762C11A9750000170A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.5.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		F2E943782C11A97F0000170A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.5.sdk/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 		F2E9437A2C11A98C0000170A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.5.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		F2E9458C2C1D885D0000170A /* IAPError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 				F2E943682C11A9330000170A /* IAPSubscriptionStatus.swift */,
 				F2E943692C11A9330000170A /* IAPTransaction.swift */,
 				F2E9436A2C11A9330000170A /* IAPTransactionObserver.swift */,
+				F2E9458C2C1D885D0000170A /* IAPError.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 				F2E9436E2C11A9330000170A /* IAPProduct.swift in Sources */,
 				F2E9436D2C11A9330000170A /* IAPOffer.swift in Sources */,
 				F2E943712C11A9330000170A /* IAPSubscriptionPeriod.swift in Sources */,
+				F2E9458D2C1D885D0000170A /* IAPError.swift in Sources */,
 				F2E9436F2C11A9330000170A /* IAPSubscriptionInfo.swift in Sources */,
 				F2E943732C11A9330000170A /* IAPTransaction.swift in Sources */,
 			);
