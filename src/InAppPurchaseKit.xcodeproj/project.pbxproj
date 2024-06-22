@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F21DA89B2C26B09F0044ACF2 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F21DA89A2C26B09F0044ACF2 /* PrivacyInfo.xcprivacy */; };
 		F2E9435C2C11A8C60000170A /* InAppPurchaseKit.h in Headers */ = {isa = PBXBuildFile; fileRef = F2E9435B2C11A8C60000170A /* InAppPurchaseKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F2E9436C2C11A9330000170A /* IAPAppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E943622C11A9330000170A /* IAPAppStore.swift */; };
 		F2E9436D2C11A9330000170A /* IAPOffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E943632C11A9330000170A /* IAPOffer.swift */; };
@@ -24,6 +25,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F21DA89A2C26B09F0044ACF2 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		F2E943582C11A8C60000170A /* InAppPurchaseKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = InAppPurchaseKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2E9435B2C11A8C60000170A /* InAppPurchaseKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InAppPurchaseKit.h; sourceTree = "<group>"; };
 		F2E943622C11A9330000170A /* IAPAppStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPAppStore.swift; sourceTree = "<group>"; };
@@ -55,6 +57,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F21DA8992C26B0920044ACF2 /* Ressources */ = {
+			isa = PBXGroup;
+			children = (
+				F21DA89A2C26B09F0044ACF2 /* PrivacyInfo.xcprivacy */,
+			);
+			name = Ressources;
+			sourceTree = "<group>";
+		};
 		F2E9434E2C11A8C60000170A = {
 			isa = PBXGroup;
 			children = (
@@ -77,6 +87,7 @@
 			children = (
 				F2E9435B2C11A8C60000170A /* InAppPurchaseKit.h */,
 				F2E9436B2C11A9330000170A /* Classes */,
+				F21DA8992C26B0920044ACF2 /* Ressources */,
 			);
 			path = InAppPurchaseKit;
 			sourceTree = "<group>";
@@ -177,6 +188,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F21DA89B2C26B09F0044ACF2 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
