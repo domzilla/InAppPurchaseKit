@@ -78,8 +78,12 @@ import StoreKit
     }
     
     @available(iOS 17.0, *)
-    @objc public static func showManageSubscriptions(in scene: UIWindowScene, subscriptionGroupID: String) async throws {
-        try await AppStore.showManageSubscriptions(in: scene, subscriptionGroupID: subscriptionGroupID)
+    @objc public static func showManageSubscriptions(in scene: UIWindowScene, subscriptionGroupID: String?) async throws {
+        if let subscriptionGroupID = subscriptionGroupID {
+            try await AppStore.showManageSubscriptions(in: scene, subscriptionGroupID: subscriptionGroupID)
+        } else {
+            try await AppStore.showManageSubscriptions(in: scene)
+        }
     }
     
     @MainActor @available(iOS 16.0, *)
