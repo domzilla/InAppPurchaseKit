@@ -17,12 +17,10 @@ import StoreKit
     
     @objc public let subscriptionGroupID: String
     
-    @available(iOS 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, visionOS 1.0, *)
     @objc public var groupDisplayName: String {
         return self.subscriptionInfo.groupDisplayName
     }
     
-    @available(iOS 16.4, macOS 13.3, tvOS 16.4, watchOS 9.4, visionOS 1.0, *)
     @objc public var groupLevel: Int {
         return self.subscriptionInfo.groupLevel
     }

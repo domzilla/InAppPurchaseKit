@@ -43,7 +43,6 @@ import StoreKit
     case purchase
     case renewal
     
-    @available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *)
     public init(_ reason: Transaction.Reason?) {
         switch reason {
         case .purchase:
