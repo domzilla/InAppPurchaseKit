@@ -15,6 +15,7 @@ import StoreKit
     case sandbox
     case xcode
     
+    @available(iOS 16.0, macOS 13.0, tvOS 16.0, watchOS 9.0, visionOS 1.0, *)
     public init(_ environment: AppStore.Environment) {
         switch environment {
         case .production:
@@ -75,7 +76,8 @@ import StoreKit
     @objc public static func showManageSubscriptions(in scene: UIWindowScene) async throws {
         try await AppStore.showManageSubscriptions(in: scene)
     }
-
+    
+    @available(iOS 17.0, *)
     @objc public static func showManageSubscriptions(in scene: UIWindowScene, subscriptionGroupID: String?) async throws {
         if let subscriptionGroupID = subscriptionGroupID {
             try await AppStore.showManageSubscriptions(in: scene, subscriptionGroupID: subscriptionGroupID)
@@ -84,12 +86,12 @@ import StoreKit
         }
     }
     
-    @MainActor
+    @MainActor @available(iOS 16.0, *)
     @objc public static func requestReview(in scene: UIWindowScene) {
         AppStore.requestReview(in: scene)
     }
     
-    @MainActor
+    @MainActor @available(iOS 16.0, *)
     @objc public static func presentOfferCodeRedeemSheet(in scene: UIWindowScene) async throws {
         try await AppStore.presentOfferCodeRedeemSheet(in: scene)
     }

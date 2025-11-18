@@ -54,6 +54,7 @@ import StoreKit
     case payAsYouGo
     case payUpFront
     
+    @available(iOS 17.2, macOS 14.2, tvOS 17.2, watchOS 10.2, visionOS 1.1, *)
     public init(_ paymentMode: Transaction.Offer.PaymentMode?) {
         switch paymentMode {
         case .freeTrial:
@@ -227,6 +228,7 @@ import StoreKit
     }
     
 #if os(iOS)
+    @available(iOS 17.0, tvOS 17.0, visionOS 1.0, *)
     @objc public func purchase(confirmIn scene: UIScene) async throws -> (IAPTransaction?, IAPPurchaseResult) {
         
         let purchaseResult = try await self.product.purchase(confirmIn: scene)
