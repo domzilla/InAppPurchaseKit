@@ -3,20 +3,10 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F2E943C02C12C03F0000170A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2E943BF2C12C03F0000170A /* Assets.xcassets */; };
-		F2E943C32C12C03F0000170A /* Base in Resources */ = {isa = PBXBuildFile; fileRef = F2E943C22C12C03F0000170A /* Base */; };
-		F2E943C62C12C03F0000170A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F2E943C52C12C03F0000170A /* main.m */; };
-		F2E943DB2C12C0F40000170A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F2E943CF2C12C0F40000170A /* AppDelegate.m */; };
-		F2E943DC2C12C0F40000170A /* ProductsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2E943D12C12C0F40000170A /* ProductsViewController.m */; };
-		F2E943DD2C12C0F40000170A /* ProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2E943D32C12C0F40000170A /* ProductViewController.m */; };
-		F2E943DE2C12C0F40000170A /* ProductViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2E943D42C12C0F40000170A /* ProductViewController.xib */; };
-		F2E943DF2C12C0F40000170A /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F2E943D62C12C0F40000170A /* SceneDelegate.m */; };
-		F2E943E02C12C0F40000170A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F2E943D82C12C0F40000170A /* ViewController.m */; };
-		F2E943E12C12C0F40000170A /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F2E943D92C12C0F40000170A /* ViewController.xib */; };
 		F2E943ED2C12C12B0000170A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2E943EC2C12C12B0000170A /* Foundation.framework */; };
 		F2E943EF2C12C1320000170A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2E943EE2C12C1320000170A /* UIKit.framework */; };
 		F2E943F12C12C1390000170A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2E943F02C12C1390000170A /* StoreKit.framework */; };
@@ -57,28 +47,32 @@
 
 /* Begin PBXFileReference section */
 		F2E943B02C12C03D0000170A /* IAP Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "IAP Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		F2E943BF2C12C03F0000170A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		F2E943C22C12C03F0000170A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		F2E943C42C12C03F0000170A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F2E943C52C12C03F0000170A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		F2E943CC2C12C0710000170A /* IAP Test.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "IAP Test.entitlements"; sourceTree = "<group>"; };
-		F2E943CE2C12C0F40000170A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		F2E943CF2C12C0F40000170A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		F2E943D02C12C0F40000170A /* ProductsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductsViewController.h; sourceTree = "<group>"; };
-		F2E943D12C12C0F40000170A /* ProductsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductsViewController.m; sourceTree = "<group>"; };
-		F2E943D22C12C0F40000170A /* ProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductViewController.h; sourceTree = "<group>"; };
-		F2E943D32C12C0F40000170A /* ProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductViewController.m; sourceTree = "<group>"; };
-		F2E943D42C12C0F40000170A /* ProductViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductViewController.xib; sourceTree = "<group>"; };
-		F2E943D52C12C0F40000170A /* SceneDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
-		F2E943D62C12C0F40000170A /* SceneDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
-		F2E943D72C12C0F40000170A /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		F2E943D82C12C0F40000170A /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		F2E943D92C12C0F40000170A /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		F2E943EC2C12C12B0000170A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		F2E943EE2C12C1320000170A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/System/iOSSupport/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		F2E943F02C12C1390000170A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.5.sdk/System/iOSSupport/System/Library/Frameworks/StoreKit.framework; sourceTree = DEVELOPER_DIR; };
 		F2E943FB2C12C7B80000170A /* InAppPurchaseKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = InAppPurchaseKit.xcodeproj; path = ../../src/InAppPurchaseKit.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		F25D68442F4D882800DD1ED0 /* Exceptions for "IAP Test" folder in "IAP Test" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Resources/Info.plist,
+			);
+			target = F2E943AF2C12C03D0000170A /* IAP Test */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		F25D68382F4D881D00DD1ED0 /* IAP Test */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F25D68442F4D882800DD1ED0 /* Exceptions for "IAP Test" folder in "IAP Test" target */,
+			);
+			path = "IAP Test";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		F2E943AD2C12C03D0000170A /* Frameworks */ = {
@@ -99,7 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				F2E943FB2C12C7B80000170A /* InAppPurchaseKit.xcodeproj */,
-				F2E943B22C12C03D0000170A /* IAP Test */,
+				F25D68382F4D881D00DD1ED0 /* IAP Test */,
 				F2E943B12C12C03D0000170A /* Products */,
 				F2E943EB2C12C12B0000170A /* Frameworks */,
 			);
@@ -111,54 +105,6 @@
 				F2E943B02C12C03D0000170A /* IAP Test.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		F2E943B22C12C03D0000170A /* IAP Test */ = {
-			isa = PBXGroup;
-			children = (
-				F2E943DA2C12C0F40000170A /* Classes */,
-				F2E943CD2C12C07D0000170A /* Ressources */,
-				F2E943C52C12C03F0000170A /* main.m */,
-			);
-			path = "IAP Test";
-			sourceTree = "<group>";
-		};
-		F2E943CD2C12C07D0000170A /* Ressources */ = {
-			isa = PBXGroup;
-			children = (
-				F2E943BF2C12C03F0000170A /* Assets.xcassets */,
-				F2E943C12C12C03F0000170A /* LaunchScreen.storyboard */,
-				F2E943CC2C12C0710000170A /* IAP Test.entitlements */,
-				F2E943C42C12C03F0000170A /* Info.plist */,
-			);
-			name = Ressources;
-			sourceTree = "<group>";
-		};
-		F2E943DA2C12C0F40000170A /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				F2E943CE2C12C0F40000170A /* AppDelegate.h */,
-				F2E943CF2C12C0F40000170A /* AppDelegate.m */,
-				F2E943D52C12C0F40000170A /* SceneDelegate.h */,
-				F2E943D62C12C0F40000170A /* SceneDelegate.m */,
-				F2E943E22C12C1000000170A /* View Controller */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
-		F2E943E22C12C1000000170A /* View Controller */ = {
-			isa = PBXGroup;
-			children = (
-				F2E943D72C12C0F40000170A /* ViewController.h */,
-				F2E943D82C12C0F40000170A /* ViewController.m */,
-				F2E943D92C12C0F40000170A /* ViewController.xib */,
-				F2E943D02C12C0F40000170A /* ProductsViewController.h */,
-				F2E943D12C12C0F40000170A /* ProductsViewController.m */,
-				F2E943D22C12C0F40000170A /* ProductViewController.h */,
-				F2E943D32C12C0F40000170A /* ProductViewController.m */,
-				F2E943D42C12C0F40000170A /* ProductViewController.xib */,
-			);
-			name = "View Controller";
 			sourceTree = "<group>";
 		};
 		F2E943EB2C12C12B0000170A /* Frameworks */ = {
@@ -196,6 +142,9 @@
 			dependencies = (
 				F2E944022C12C7BF0000170A /* PBXTargetDependency */,
 			);
+			fileSystemSynchronizedGroups = (
+				F25D68382F4D881D00DD1ED0 /* IAP Test */,
+			);
 			name = "IAP Test";
 			productName = "IAP Test";
 			productReference = F2E943B02C12C03D0000170A /* IAP Test.app */;
@@ -208,7 +157,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 2620;
 				TargetAttributes = {
 					F2E943AF2C12C03D0000170A = {
 						CreatedOnToolsVersion = 15.4;
@@ -216,7 +165,6 @@
 				};
 			};
 			buildConfigurationList = F2E943AB2C12C03D0000170A /* Build configuration list for PBXProject "IAP Test" */;
-			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -224,6 +172,7 @@
 				Base,
 			);
 			mainGroup = F2E943A72C12C03D0000170A;
+			preferredProjectObjectVersion = 77;
 			productRefGroup = F2E943B12C12C03D0000170A /* Products */;
 			projectDirPath = "";
 			projectReferences = (
@@ -254,10 +203,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2E943E12C12C0F40000170A /* ViewController.xib in Resources */,
-				F2E943C02C12C03F0000170A /* Assets.xcassets in Resources */,
-				F2E943C32C12C03F0000170A /* Base in Resources */,
-				F2E943DE2C12C0F40000170A /* ProductViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,12 +213,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2E943E02C12C0F40000170A /* ViewController.m in Sources */,
-				F2E943DB2C12C0F40000170A /* AppDelegate.m in Sources */,
-				F2E943DC2C12C0F40000170A /* ProductsViewController.m in Sources */,
-				F2E943DF2C12C0F40000170A /* SceneDelegate.m in Sources */,
-				F2E943DD2C12C0F40000170A /* ProductViewController.m in Sources */,
-				F2E943C62C12C03F0000170A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,17 +225,6 @@
 			targetProxy = F2E944012C12C7BF0000170A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		F2E943C12C12C03F0000170A /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F2E943C22C12C03F0000170A /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		F2E943C72C12C03F0000170A /* Debug */ = {
@@ -419,19 +347,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "IAP Test/IAP Test.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "IAP Test/Resources/IAP Test.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 568T6RKXH7;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "IAP Test/Info.plist";
+				INFOPLIST_FILE = "IAP Test/Resources/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -450,19 +377,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "IAP Test/IAP Test.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "IAP Test/Resources/IAP Test.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 568T6RKXH7;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "IAP Test/Info.plist";
+				INFOPLIST_FILE = "IAP Test/Resources/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
