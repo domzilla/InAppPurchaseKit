@@ -35,14 +35,6 @@ DZLog("Starting fetch")       // General debug output
 DZErrorLog(error)             // Conditional error logging (only prints if error is non-nil)
 ```
 
-### Objective-C (BGFoundation)
-```objc
-#import <BGFoundation/BGFoundation.h>
-
-BGLog(@"Starting fetch");     // General debug output
-BGErrorLog(error);            // Conditional error logging (only prints if error is non-nil)
-```
-
 **Do NOT use:**
 - `print()` / `NSLog()` for debug output
 - `os.Logger` instances
@@ -92,7 +84,33 @@ xcodebuild -project src/InAppPurchaseKit.xcodeproj -scheme InAppPurchaseKit \
 xcodebuild -project src/InAppPurchaseKit.xcodeproj -scheme InAppPurchaseKit clean
 ```
 
-No test targets exist in this project.
+## Testing (MANDATORY)
+This project uses **Swift Testing** (`@Test`, `@Suite`, `#expect`). Tests live in `src/InAppPurchaseKitTests/`.
+
+**Run tests after every code change:**
+```bash
+# iOS
+xcodebuild test -project src/InAppPurchaseKit.xcodeproj -scheme InAppPurchaseKitTests \
+  -destination 'platform=iOS Simulator,name=iPhone 17 Pro' -configuration Debug
+
+# macOS (Mac Catalyst)
+xcodebuild test -project src/InAppPurchaseKit.xcodeproj -scheme InAppPurchaseKitTests \
+  -destination 'platform=macOS,variant=Mac Catalyst' -configuration Debug
+```
+
+**Rules:**
+- Tests **must pass** before handoff for every supported platform — do not leave broken tests
+- When adding or changing public API, **add or update corresponding tests**
+- When removing public API, **remove the corresponding tests**
+- One test file per public class
+
+**Troubleshooting:**
+If tests hang due to parallel execution (e.g., port conflicts), add .serialized to the affected @Suite declarations.
+For example: `@Suite("MyTests", .serialized, .tags(.integration))`
+
+**When tests fail:**
+- Fix the root cause — do not skip or disable tests
+- If a test failure reveals a real bug in the framework, fix the framework code
 
 ## Code Formatting — Swift Only (MANDATORY)
 **Always run SwiftFormat after modifying Swift files:**

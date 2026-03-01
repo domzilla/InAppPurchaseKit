@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Added
 
 - Comprehensive `///` documentation comments for all public API types, properties, methods, and enum cases across all 10 source files
+- Unit tests for `IAPSubscriptionPeriodUnit`: raw value coverage, `init` mapping from `Product.SubscriptionPeriod.Unit`, and `description` strings
 
 ## [November 2025]
 
