@@ -1,0 +1,46 @@
+# queuestack Project Configuration
+# This file configures queuestack for this specific project.
+# All settings here override the global config (~/.queuestack).
+# Location: <project-root>/.queuestack
+
+# User's display name for item authorship.
+# If not set, falls back to global config.
+# user_name = "Your Name"
+
+# Whether to use `git config user.name` as a fallback.
+# If not set, falls back to global config.
+# use_git_user = true
+
+# Editor command to open when creating new items.
+# If not set, falls back to global config.
+# editor = "nvim"
+
+# Whether to enable interactive mode (opens editor, shows selection dialogs).
+# If not set, falls back to global config.
+# interactive = true
+
+# Pattern for generating unique item IDs.
+# If not set, falls back to global config.
+#
+# Available tokens:
+#   %y  - Year (2 digits, e.g., "26" for 2026)
+#   %m  - Month (2 digits, 01-12)
+#   %d  - Day of month (2 digits, 01-31)
+#   %j  - Day of year (3 digits, 001-366)
+#   %T  - Time as Base32 (4 chars) - seconds since midnight UTC
+#   %R  - Random Base32 character (repeat for more: %RRR = 3 chars)
+#   %%  - Literal percent sign
+#
+# id_pattern = "%y%m%d-%T%RRR"
+
+# Directory name for storing items (relative to project root).
+# If not set, falls back to global config (default: "queuestack").
+# stack_dir = "queuestack"
+
+# Subdirectory name for archived (closed) items within the queuestack directory.
+# If not set, falls back to global config (default: ".archive").
+# archive_dir = ".archive"
+
+# Subdirectory name for templates within the queuestack directory.
+# If not set, falls back to global config (default: ".templates").
+# template_dir = ".templates"
