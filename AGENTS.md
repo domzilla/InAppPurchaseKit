@@ -64,6 +64,7 @@ This project uses **File System Synchronized Groups** (internally `PBXFileSystem
 **Bottom line:** Modify source files in `Classes/` and `Resources/` freely. Just never touch the `.xcodeproj` files themselves.
 
 ## Build Commands
+**MANDATORY:** Never write build output into the project directory; use Xcode's default DerivedData location or pass `-derivedDataPath` pointing outside the project tree.
 ```bash
 # Build (iOS)
 xcodebuild -project src/InAppPurchaseKit.xcodeproj -scheme InAppPurchaseKit \
