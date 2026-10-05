@@ -45,7 +45,9 @@ xcodebuild test -project src/InAppPurchaseKit.xcodeproj -scheme InAppPurchaseKit
   -destination 'platform=macOS,variant=Mac Catalyst' -configuration Debug
 ```
 
+The test target is iOS SDK only, so native macOS is not covered by tests.
+
 ## Notes
-- All Swift classes use `@objc` and `@objcMembers` for Objective-C bridging
+- Objective-C bridging uses `@objc` on each exposed class and member (no `@objcMembers`)
 - StoreKit2 availability checks are used extensively — respect `@available` annotations
 - The framework has no user-facing strings; localization is not applicable
