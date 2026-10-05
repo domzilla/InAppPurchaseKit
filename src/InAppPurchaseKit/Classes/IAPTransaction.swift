@@ -216,7 +216,6 @@ public enum IAPRefundRequestStatus: Int, CustomStringConvertible {
 ///   transactions are silently discarded with a debug log message.
 @objc
 public class IAPTransaction: NSObject {
-    /// The underlying StoreKit `Transaction` that this instance wraps.
     let transaction: Transaction
 
     // MARK: Public Properties
@@ -343,13 +342,6 @@ public class IAPTransaction: NSObject {
 
     // MARK: - --
 
-    /// Creates an `IAPTransaction` wrapper from a StoreKit `Transaction`.
-    ///
-    /// All properties are eagerly extracted from the StoreKit transaction at initialization time.
-    /// Platform-specific availability checks are applied for properties like ``environment``
-    /// and ``reason`` to use the best available API.
-    ///
-    /// - Parameter fromTransaction: The verified StoreKit `Transaction` to wrap.
     init(_ fromTransaction: Transaction) {
         self.transaction = fromTransaction
 

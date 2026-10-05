@@ -22,10 +22,8 @@ import StoreKit
 ///   `IAPTransaction.TransactionDidFinishNotification`.
 @objc
 public class IAPTransactionObserver: NSObject {
-    /// The background task that listens for new transaction updates via `Transaction.updates`.
     var updateListenerTask: Task<Void, Error>?
 
-    /// The background task that iterates through unfinished transactions via `Transaction.unfinished`.
     var unfinishedListenerTask: Task<Void, Error>?
 
     // MARK: Public Properties
@@ -103,14 +101,6 @@ public class IAPTransactionObserver: NSObject {
 
     // MARK: - -
 
-    /// Processes a single transaction verification result by verifying and finishing the transaction.
-    ///
-    /// Only verified transactions are processed. Unverified transactions are silently discarded
-    /// (with debug output logged by ``IAPTransaction/transaction(fromVerificationResult:)``).
-    /// Verified transactions are immediately finished, which also posts
-    /// `IAPTransaction.TransactionDidFinishNotification`.
-    ///
-    /// - Parameter verificationResult: The `VerificationResult<Transaction>` to process.
     private func process(verificationResult: VerificationResult<Transaction>) async {
         guard let transaction = IAPTransaction.transaction(fromVerificationResult: verificationResult) else {
             return

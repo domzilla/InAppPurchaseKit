@@ -220,7 +220,6 @@ public enum IAPPurchaseResult: Int {
 /// or ``purchase(confirmIn:)`` to initiate a purchase flow.
 @objc
 public class IAPProduct: NSObject {
-    /// The underlying StoreKit `Product` instance.
     let product: Product
 
     // MARK: Public Properies
@@ -257,9 +256,6 @@ public class IAPProduct: NSObject {
 
     // MARK: - --
 
-    /// Creates an `IAPProduct` from a StoreKit `Product`.
-    ///
-    /// - Parameter fromProduct: The StoreKit `Product` instance to wrap.
     init(_ fromProduct: Product) {
         self.product = fromProduct
 
@@ -409,14 +405,6 @@ public class IAPProduct: NSObject {
 
     // MARK: - --
 
-    /// Processes a StoreKit `Product.PurchaseResult` into an `IAPTransaction` and `IAPPurchaseResult` tuple.
-    ///
-    /// On success, the transaction is verified via `IAPTransaction.transaction(fromVerificationResult:)`
-    /// and automatically finished before being returned.
-    ///
-    /// - Parameter purchaseResult: The raw StoreKit purchase result to process.
-    /// - Returns: A tuple containing the verified `IAPTransaction` (or `nil`) and the corresponding
-    ///   `IAPPurchaseResult`.
     private func processPurchaseResult(_ purchaseResult: Product
         .PurchaseResult) async
         -> (IAPTransaction?, IAPPurchaseResult)

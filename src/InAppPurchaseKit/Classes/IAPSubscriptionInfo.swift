@@ -92,9 +92,6 @@ public class IAPSubscriptionInfo: NSObject {
 
     // MARK: - -
 
-    /// Creates a new instance by wrapping a StoreKit2 `Product.SubscriptionInfo`.
-    ///
-    /// - Parameter fromSubscriptionInfo: The `Product.SubscriptionInfo` value to wrap.
     init(_ fromSubscriptionInfo: Product.SubscriptionInfo) {
         self.subscriptionInfo = fromSubscriptionInfo
 

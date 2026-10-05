@@ -127,9 +127,6 @@ public enum IAPSubscriptionExpirationReason: Int, CustomStringConvertible {
     /// Wraps `Product.SubscriptionInfo.RenewalInfo.ExpirationReason.unknown`.
     case unknown
 
-    /// Creates an expiration reason from a StoreKit2 `Product.SubscriptionInfo.RenewalInfo.ExpirationReason`.
-    ///
-    /// - Parameter expirationReason: The StoreKit2 expiration reason to convert. Pass `nil` to get ``none``.
     init(_ expirationReason: Product.SubscriptionInfo.RenewalInfo.ExpirationReason?) {
         switch expirationReason {
         case .autoRenewDisabled:
@@ -180,10 +177,9 @@ public enum IAPSubscriptionExpirationReason: Int, CustomStringConvertible {
 ///   ``gracePeriodExpirationDate``) return their default/fallback values.
 @objc
 public class IAPSubscriptionStatus: NSObject {
-    /// The underlying StoreKit2 subscription status.
     let status: Product.SubscriptionInfo.Status
 
-    /// The verified renewal info extracted from the status, or `nil` if verification failed.
+    /// nil if verification failed.
     let renewalInfo: Product.SubscriptionInfo.RenewalInfo?
 
     // MARK: Public Properties
@@ -234,13 +230,6 @@ public class IAPSubscriptionStatus: NSObject {
 
     // MARK: - --
 
-    /// Creates a subscription status wrapper from a StoreKit2 `Product.SubscriptionInfo.Status`.
-    ///
-    /// Extracts the renewal state, transaction, and renewal info from the provided status.
-    /// If the renewal info fails StoreKit verification, it is discarded and renewal-dependent
-    /// properties will return their default values.
-    ///
-    /// - Parameter fromStatus: The StoreKit2 subscription status to wrap.
     init(_ fromStatus: Product.SubscriptionInfo.Status) {
         self.status = fromStatus
 

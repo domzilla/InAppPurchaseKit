@@ -8,11 +8,7 @@
 import Foundation
 import StoreKit
 
-/// Extends ``IAPOfferType`` with an initializer that converts from StoreKit2's
-/// `Product.SubscriptionOffer.OfferType`.
-///
-/// - Note: The `code` offer type is not available on `Product.SubscriptionOffer.OfferType`,
-///   so only `introductory` and `promotional` are mapped. All other values default to ``IAPOfferType/undefined``.
+/// Product.SubscriptionOffer.OfferType has no `code` case, so only introductory and promotional are mapped.
 extension IAPOfferType {
     /// Creates an ``IAPOfferType`` from a StoreKit2 `Product.SubscriptionOffer.OfferType`.
     ///
@@ -43,7 +39,6 @@ extension IAPOfferType {
 ///   subscription product data from StoreKit2. The initializer is not public.
 @objc
 public class IAPSubscriptionOffer: IAPOffer {
-    /// The underlying StoreKit2 `Product.SubscriptionOffer` that this instance wraps.
     let subscriptionOffer: Product.SubscriptionOffer
 
     // MARK: Public Properties
@@ -79,13 +74,6 @@ public class IAPSubscriptionOffer: IAPOffer {
 
     // MARK: - -
 
-    /// Creates an ``IAPSubscriptionOffer`` from a StoreKit2 `Product.SubscriptionOffer`.
-    ///
-    /// Extracts the display price, decimal price, subscription period, and period count
-    /// from the StoreKit2 offer, and passes the offer ID, type, and payment mode to
-    /// the ``IAPOffer`` superclass.
-    ///
-    /// - Parameter fromSubscriptionOffer: The StoreKit2 `Product.SubscriptionOffer` to wrap.
     init(_ fromSubscriptionOffer: Product.SubscriptionOffer) {
         self.subscriptionOffer = fromSubscriptionOffer
 

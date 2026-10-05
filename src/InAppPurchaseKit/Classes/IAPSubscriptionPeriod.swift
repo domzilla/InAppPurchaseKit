@@ -81,7 +81,6 @@ public enum IAPSubscriptionPeriodUnit: Int {
 /// how often a subscription renews (e.g., 1 month, 3 months, 1 year).
 @objc
 public class IAPSubscriptionPeriod: NSObject {
-    /// The underlying StoreKit2 subscription period.
     let period: Product.SubscriptionPeriod
 
     // MARK: Public Properties
@@ -103,9 +102,6 @@ public class IAPSubscriptionPeriod: NSObject {
 
     // MARK: - -
 
-    /// Creates a subscription period from a StoreKit2 `Product.SubscriptionPeriod`.
-    ///
-    /// - Parameter fromPeriod: The StoreKit2 subscription period to wrap.
     init(_ fromPeriod: Product.SubscriptionPeriod) {
         self.period = fromPeriod
 
