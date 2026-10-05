@@ -10,27 +10,20 @@ import StoreKit
 import Testing
 @testable import InAppPurchaseKit
 
-// MARK: - IAPSubscriptionOfferTests
-
-@Suite("IAPSubscriptionOffer Tests")
+@Suite("IAPOfferType init from Product.SubscriptionOffer.OfferType")
 struct IAPSubscriptionOfferTests {
-    // MARK: - IAPOfferType Init from SubscriptionOffer.OfferType
-
-    @Suite("IAPOfferType init from SubscriptionOffer.OfferType", .tags(.enumMapping))
-    struct OfferTypeFromSubscriptionOfferTypeTests {
-        @Test("maps introductory to introductory")
-        func mapsIntroductoryToIntroductory() {
-            #expect(IAPOfferType(Product.SubscriptionOffer.OfferType.introductory) == .introductory)
-        }
-
-        @Test("maps promotional to promotional")
-        func mapsPromotionalToPromotional() {
-            #expect(IAPOfferType(Product.SubscriptionOffer.OfferType.promotional) == .promotional)
-        }
-
-        @Test("maps nil to undefined")
-        func mapsNilToUndefined() {
-            #expect(IAPOfferType(nil as Product.SubscriptionOffer.OfferType?) == .undefined)
-        }
+    @Test(
+        "maps StoreKit subscription offer type to expected case",
+        arguments: [
+            (Product.SubscriptionOffer.OfferType?.some(.introductory), IAPOfferType.introductory),
+            (Product.SubscriptionOffer.OfferType?.some(.promotional), IAPOfferType.promotional),
+            (Product.SubscriptionOffer.OfferType?.none, IAPOfferType.undefined),
+        ]
+    )
+    func mapsStoreKitSubscriptionOfferTypeToExpectedCase(
+        _ offerType: Product.SubscriptionOffer.OfferType?,
+        expectedOfferType: IAPOfferType
+    ) {
+        #expect(IAPOfferType(offerType) == expectedOfferType)
     }
 }

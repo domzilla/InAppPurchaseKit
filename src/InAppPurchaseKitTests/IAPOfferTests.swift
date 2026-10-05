@@ -10,13 +10,11 @@ import StoreKit
 import Testing
 @testable import InAppPurchaseKit
 
-// MARK: - IAPOfferTypeTests
-
-@Suite("IAPOfferType", .tags(.enumMapping, .properties))
+@Suite("IAPOfferType")
 struct IAPOfferTypeTests {
-    // MARK: - Raw Values
+    // MARK: Raw Values
 
-    @Suite("raw values", .tags(.enumMapping, .properties))
+    @Suite("raw values")
     struct RawValueTests {
         @Test(
             "has expected raw value",
@@ -32,38 +30,30 @@ struct IAPOfferTypeTests {
         }
     }
 
-    // MARK: - Init from Transaction.OfferType
+    // MARK: Init from Transaction.OfferType
 
-    @Suite("init from Transaction.OfferType", .tags(.enumMapping))
+    @Suite("init from Transaction.OfferType")
     struct InitFromTransactionOfferTypeTests {
-        @Test("maps introductory to introductory")
-        func mapsIntroductoryToIntroductory() {
-            let offerType: Transaction.OfferType = .introductory
-            #expect(IAPOfferType(offerType) == .introductory)
-        }
-
-        @Test("maps promotional to promotional")
-        func mapsPromotionalToPromotional() {
-            let offerType: Transaction.OfferType = .promotional
-            #expect(IAPOfferType(offerType) == .promotional)
-        }
-
-        @Test("maps code to code")
-        func mapsCodeToCode() {
-            let offerType: Transaction.OfferType = .code
-            #expect(IAPOfferType(offerType) == .code)
-        }
-
-        @Test("maps nil to undefined")
-        func mapsNilToUndefined() {
-            let offerType: Transaction.OfferType? = nil
-            #expect(IAPOfferType(offerType) == .undefined)
+        @Test(
+            "maps StoreKit offer type to expected case",
+            arguments: [
+                (Transaction.OfferType?.some(.introductory), IAPOfferType.introductory),
+                (Transaction.OfferType?.some(.promotional), IAPOfferType.promotional),
+                (Transaction.OfferType?.some(.code), IAPOfferType.code),
+                (Transaction.OfferType?.none, IAPOfferType.undefined),
+            ]
+        )
+        func mapsStoreKitOfferTypeToExpectedCase(
+            _ offerType: Transaction.OfferType?,
+            expectedOfferType: IAPOfferType
+        ) {
+            #expect(IAPOfferType(offerType) == expectedOfferType)
         }
     }
 
-    // MARK: - Description
+    // MARK: Description
 
-    @Suite("description", .tags(.stringParsing, .properties))
+    @Suite("description")
     struct DescriptionTests {
         @Test(
             "returns expected description string",
@@ -80,65 +70,45 @@ struct IAPOfferTypeTests {
     }
 }
 
-// MARK: - IAPOfferInitTests
+@Suite("IAPOffer")
+struct IAPOfferTests {
+    static let offerID = "promo_spring_2026"
 
-@Suite("IAPOffer", .tags(.properties))
-struct IAPOfferInitTests {
-    // MARK: - Init
+    // MARK: Init
 
-    @Suite("init(offerID:type:paymentMode:)", .tags(.properties))
+    @Suite("init(offerID:type:paymentMode:)")
     struct InitTests {
-        @Test("stores offerID correctly")
-        func storesOfferIDCorrectly() {
-            let offer = IAPOffer(offerID: "promo_spring_2026", type: .promotional, paymentMode: .freeTrial)
-            #expect(offer.offerID == "promo_spring_2026")
-        }
-
-        @Test("stores type correctly")
-        func storesTypeCorrectly() {
-            let offer = IAPOffer(offerID: "promo_spring_2026", type: .promotional, paymentMode: .freeTrial)
+        @Test("stores the given values")
+        func storesGivenValues() {
+            let offer = IAPOffer(offerID: IAPOfferTests.offerID, type: .promotional, paymentMode: .freeTrial)
+            #expect(offer.offerID == IAPOfferTests.offerID)
             #expect(offer.type == .promotional)
-        }
-
-        @Test("stores paymentMode correctly")
-        func storesPaymentModeCorrectly() {
-            let offer = IAPOffer(offerID: "promo_spring_2026", type: .promotional, paymentMode: .freeTrial)
             #expect(offer.paymentMode == .freeTrial)
         }
 
-        @Test("stores nil offerID correctly")
-        func storesNilOfferIDCorrectly() {
+        @Test("stores nil offerID")
+        func storesNilOfferID() {
             let offer = IAPOffer(offerID: nil, type: .introductory, paymentMode: .freeTrial)
             #expect(offer.offerID == nil)
         }
     }
 
-    // MARK: - Description
+    // MARK: Description
 
-    @Suite("description", .tags(.stringParsing, .properties))
+    @Suite("description")
     struct DescriptionTests {
-        @Test("description contains offerID")
-        func descriptionContainsOfferID() {
-            let offer = IAPOffer(offerID: "promo_spring_2026", type: .promotional, paymentMode: .payAsYouGo)
-            #expect(offer.description.contains("promo_spring_2026"))
+        @Test("lists offerID, type and paymentMode")
+        func listsOfferIDTypeAndPaymentMode() {
+            let offer = IAPOffer(offerID: IAPOfferTests.offerID, type: .promotional, paymentMode: .payAsYouGo)
+            #expect(offer.description.contains("offerID: \(IAPOfferTests.offerID) \n"))
+            #expect(offer.description.contains("type: promotional \n"))
+            #expect(offer.description.contains("paymentMode: payAsYouGo \n"))
         }
 
-        @Test("description contains type description")
-        func descriptionContainsTypeDescription() {
-            let offer = IAPOffer(offerID: "promo_spring_2026", type: .promotional, paymentMode: .payAsYouGo)
-            #expect(offer.description.contains("promotional"))
-        }
-
-        @Test("description contains paymentMode description")
-        func descriptionContainsPaymentModeDescription() {
-            let offer = IAPOffer(offerID: "promo_spring_2026", type: .promotional, paymentMode: .payAsYouGo)
-            #expect(offer.description.contains("payAsYouGo"))
-        }
-
-        @Test("description contains nil literal when offerID is nil")
-        func descriptionContainsNilLiteralWhenOfferIDIsNil() {
+        @Test("lists nil literal when offerID is nil")
+        func listsNilLiteralWhenOfferIDIsNil() {
             let offer = IAPOffer(offerID: nil, type: .introductory, paymentMode: .freeTrial)
-            #expect(offer.description.contains("nil"))
+            #expect(offer.description.contains("offerID: nil \n"))
         }
     }
 }

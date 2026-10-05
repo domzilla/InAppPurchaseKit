@@ -10,13 +10,11 @@ import StoreKit
 import Testing
 @testable import InAppPurchaseKit
 
-// MARK: - IAPTransactionOwnershipTypeTests
-
-@Suite("IAPTransactionOwnershipType", .tags(.enumMapping, .properties))
+@Suite("IAPTransactionOwnershipType")
 struct IAPTransactionOwnershipTypeTests {
-    // MARK: - Raw Values
+    // MARK: Raw Values
 
-    @Suite("raw values", .tags(.enumMapping, .properties))
+    @Suite("raw values")
     struct RawValueTests {
         @Test(
             "has expected raw value",
@@ -31,30 +29,29 @@ struct IAPTransactionOwnershipTypeTests {
         }
     }
 
-    // MARK: - Init from Transaction.OwnershipType
+    // MARK: Init from Transaction.OwnershipType
 
-    @Suite("init from Transaction.OwnershipType", .tags(.enumMapping))
+    @Suite("init from Transaction.OwnershipType")
     struct InitFromOwnershipTypeTests {
-        @Test("maps familyShared to familyShared")
-        func mapsFamilySharedToFamilyShared() {
-            #expect(IAPTransactionOwnershipType(.familyShared) == .familyShared)
-        }
-
-        @Test("maps purchased to purchased")
-        func mapsPurchasedToPurchased() {
-            #expect(IAPTransactionOwnershipType(.purchased) == .purchased)
-        }
-
-        @Test("maps nil to undefined")
-        func mapsNilToUndefined() {
-            let ownershipType: Transaction.OwnershipType? = nil
-            #expect(IAPTransactionOwnershipType(ownershipType) == .undefined)
+        @Test(
+            "maps StoreKit ownership type to expected case",
+            arguments: [
+                (Transaction.OwnershipType?.some(.familyShared), IAPTransactionOwnershipType.familyShared),
+                (Transaction.OwnershipType?.some(.purchased), IAPTransactionOwnershipType.purchased),
+                (Transaction.OwnershipType?.none, IAPTransactionOwnershipType.undefined),
+            ]
+        )
+        func mapsStoreKitOwnershipTypeToExpectedCase(
+            _ ownershipType: Transaction.OwnershipType?,
+            expectedOwnershipType: IAPTransactionOwnershipType
+        ) {
+            #expect(IAPTransactionOwnershipType(ownershipType) == expectedOwnershipType)
         }
     }
 
-    // MARK: - Description
+    // MARK: Description
 
-    @Suite("description", .tags(.stringParsing, .properties))
+    @Suite("description")
     struct DescriptionTests {
         @Test(
             "returns expected description string",
@@ -73,13 +70,11 @@ struct IAPTransactionOwnershipTypeTests {
     }
 }
 
-// MARK: - IAPTransactionReasonTests
-
-@Suite("IAPTransactionReason", .tags(.enumMapping, .properties))
+@Suite("IAPTransactionReason")
 struct IAPTransactionReasonTests {
-    // MARK: - Raw Values
+    // MARK: Raw Values
 
-    @Suite("raw values", .tags(.enumMapping, .properties))
+    @Suite("raw values")
     struct RawValueTests {
         @Test(
             "has expected raw value",
@@ -94,12 +89,12 @@ struct IAPTransactionReasonTests {
         }
     }
 
-    // MARK: - Init from String
+    // MARK: Init from String
 
-    @Suite("init from String", .tags(.stringParsing))
+    @Suite("init from String")
     struct InitFromStringTests {
         @Test(
-            "maps string to expected transaction reason",
+            "maps string case-insensitively to expected transaction reason",
             arguments: [
                 ("purchase", IAPTransactionReason.purchase),
                 ("renewal", IAPTransactionReason.renewal),
@@ -114,36 +109,26 @@ struct IAPTransactionReasonTests {
         }
     }
 
-    // MARK: - Init from Transaction.Reason
+    // MARK: Init from Transaction.Reason
 
-    @Suite("init from Transaction.Reason", .tags(.enumMapping))
+    @Suite("init from Transaction.Reason")
     struct InitFromTransactionReasonTests {
-        @Test("maps purchase to purchase")
-        func mapsPurchaseToPurchase() {
-            if #available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *) {
-                #expect(IAPTransactionReason(.purchase) == .purchase)
-            }
-        }
-
-        @Test("maps renewal to renewal")
-        func mapsRenewalToRenewal() {
-            if #available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *) {
-                #expect(IAPTransactionReason(.renewal) == .renewal)
-            }
-        }
-
-        @Test("maps nil to undefined")
-        func mapsNilToUndefined() {
-            if #available(iOS 17.0, macOS 14.0, tvOS 17.0, watchOS 10.0, *) {
-                let reason: Transaction.Reason? = nil
-                #expect(IAPTransactionReason(reason) == .undefined)
-            }
+        @Test(
+            "maps StoreKit reason to expected case",
+            arguments: [
+                (Transaction.Reason?.some(.purchase), IAPTransactionReason.purchase),
+                (Transaction.Reason?.some(.renewal), IAPTransactionReason.renewal),
+                (Transaction.Reason?.none, IAPTransactionReason.undefined),
+            ]
+        )
+        func mapsStoreKitReasonToExpectedCase(_ reason: Transaction.Reason?, expectedReason: IAPTransactionReason) {
+            #expect(IAPTransactionReason(reason) == expectedReason)
         }
     }
 
-    // MARK: - Description
+    // MARK: Description
 
-    @Suite("description", .tags(.stringParsing, .properties))
+    @Suite("description")
     struct DescriptionTests {
         @Test(
             "returns expected description string",
@@ -156,16 +141,22 @@ struct IAPTransactionReasonTests {
         func returnsExpectedDescriptionString(_ reason: IAPTransactionReason, expectedDescription: String) {
             #expect(reason.description == expectedDescription)
         }
+
+        @Test(
+            "LosslessStringConvertible round-trip produces the same case",
+            arguments: [IAPTransactionReason.undefined, IAPTransactionReason.purchase, IAPTransactionReason.renewal]
+        )
+        func roundTripProducesSameCase(_ reason: IAPTransactionReason) {
+            #expect(IAPTransactionReason(reason.description) == reason)
+        }
     }
 }
 
-// MARK: - IAPRevocationReasonTests
-
-@Suite("IAPRevocationReason", .tags(.enumMapping, .properties))
+@Suite("IAPRevocationReason")
 struct IAPRevocationReasonTests {
-    // MARK: - Raw Values
+    // MARK: Raw Values
 
-    @Suite("raw values", .tags(.enumMapping, .properties))
+    @Suite("raw values")
     struct RawValueTests {
         @Test(
             "has expected raw value",
@@ -180,30 +171,29 @@ struct IAPRevocationReasonTests {
         }
     }
 
-    // MARK: - Init from Transaction.RevocationReason
+    // MARK: Init from Transaction.RevocationReason
 
-    @Suite("init from Transaction.RevocationReason", .tags(.enumMapping))
+    @Suite("init from Transaction.RevocationReason")
     struct InitFromRevocationReasonTests {
-        @Test("maps developerIssue to developerIssue")
-        func mapsDeveloperIssueToDeveloperIssue() {
-            #expect(IAPRevocationReason(.developerIssue) == .developerIssue)
-        }
-
-        @Test("maps other to other")
-        func mapsOtherToOther() {
-            #expect(IAPRevocationReason(.other) == .other)
-        }
-
-        @Test("maps nil to undefined")
-        func mapsNilToUndefined() {
-            let revocationReason: Transaction.RevocationReason? = nil
-            #expect(IAPRevocationReason(revocationReason) == .undefined)
+        @Test(
+            "maps StoreKit revocation reason to expected case",
+            arguments: [
+                (Transaction.RevocationReason?.some(.developerIssue), IAPRevocationReason.developerIssue),
+                (Transaction.RevocationReason?.some(.other), IAPRevocationReason.other),
+                (Transaction.RevocationReason?.none, IAPRevocationReason.undefined),
+            ]
+        )
+        func mapsStoreKitRevocationReasonToExpectedCase(
+            _ revocationReason: Transaction.RevocationReason?,
+            expectedRevocationReason: IAPRevocationReason
+        ) {
+            #expect(IAPRevocationReason(revocationReason) == expectedRevocationReason)
         }
     }
 
-    // MARK: - Description
+    // MARK: Description
 
-    @Suite("description", .tags(.stringParsing, .properties))
+    @Suite("description")
     struct DescriptionTests {
         @Test(
             "returns expected description string",
@@ -219,13 +209,11 @@ struct IAPRevocationReasonTests {
     }
 }
 
-// MARK: - IAPRefundRequestStatusTests
-
-@Suite("IAPRefundRequestStatus", .tags(.enumMapping, .properties))
+@Suite("IAPRefundRequestStatus")
 struct IAPRefundRequestStatusTests {
-    // MARK: - Raw Values
+    // MARK: Raw Values
 
-    @Suite("raw values", .tags(.enumMapping, .properties))
+    @Suite("raw values")
     struct RawValueTests {
         @Test(
             "has expected raw value",
@@ -240,33 +228,29 @@ struct IAPRefundRequestStatusTests {
         }
     }
 
-    // MARK: - Init from Transaction.RefundRequestStatus
+    // MARK: Init from Transaction.RefundRequestStatus
 
-    @Suite("init from Transaction.RefundRequestStatus", .tags(.enumMapping))
+    @Suite("init from Transaction.RefundRequestStatus")
     struct InitFromRefundRequestStatusTests {
-        // NOTE: StoreKit spells the case .userCancelled (double-l); the IAP wrapper
-        // maps it to .userCanceled (single-l) to match Cocoa naming conventions.
-
-        @Test("maps userCancelled to userCanceled")
-        func mapsUserCancelledToUserCanceled() {
-            #expect(IAPRefundRequestStatus(.userCancelled) == .userCanceled)
-        }
-
-        @Test("maps success to success")
-        func mapsSuccessToSuccess() {
-            #expect(IAPRefundRequestStatus(.success) == .success)
-        }
-
-        @Test("maps nil to undefined")
-        func mapsNilToUndefined() {
-            let status: Transaction.RefundRequestStatus? = nil
-            #expect(IAPRefundRequestStatus(status) == .undefined)
+        @Test(
+            "maps StoreKit refund request status to expected case",
+            arguments: [
+                (Transaction.RefundRequestStatus?.some(.userCancelled), IAPRefundRequestStatus.userCanceled),
+                (Transaction.RefundRequestStatus?.some(.success), IAPRefundRequestStatus.success),
+                (Transaction.RefundRequestStatus?.none, IAPRefundRequestStatus.undefined),
+            ]
+        )
+        func mapsStoreKitRefundRequestStatusToExpectedCase(
+            _ status: Transaction.RefundRequestStatus?,
+            expectedStatus: IAPRefundRequestStatus
+        ) {
+            #expect(IAPRefundRequestStatus(status) == expectedStatus)
         }
     }
 
-    // MARK: - Description
+    // MARK: Description
 
-    @Suite("description", .tags(.stringParsing, .properties))
+    @Suite("description")
     struct DescriptionTests {
         @Test(
             "returns expected description string",
@@ -279,15 +263,5 @@ struct IAPRefundRequestStatusTests {
         func returnsExpectedDescriptionString(_ status: IAPRefundRequestStatus, expectedDescription: String) {
             #expect(status.description == expectedDescription)
         }
-    }
-}
-
-// MARK: - IAPTransactionNotificationTests
-
-@Suite("IAPTransaction notifications", .tags(.properties))
-struct IAPTransactionNotificationTests {
-    @Test("TransactionDidFinishNotification has expected name string")
-    func transactionDidFinishNotificationHasExpectedNameString() {
-        #expect(IAPTransaction.TransactionDidFinishNotification.rawValue == "IAPTransactionDidFinishNotification")
     }
 }

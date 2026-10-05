@@ -10,13 +10,11 @@ import StoreKit
 import Testing
 @testable import InAppPurchaseKit
 
-// MARK: - IAPSubscriptionPeriodTests
+@Suite("IAPSubscriptionPeriodUnit")
+struct IAPSubscriptionPeriodUnitTests {
+    // MARK: Raw Values
 
-@Suite("IAPSubscriptionPeriodUnit Tests", .tags(.enumMapping))
-struct IAPSubscriptionPeriodTests {
-    // MARK: - Raw Values
-
-    @Suite("raw values", .tags(.enumMapping, .properties))
+    @Suite("raw values")
     struct RawValueTests {
         @Test(
             "has expected raw value",
@@ -33,43 +31,39 @@ struct IAPSubscriptionPeriodTests {
         }
     }
 
-    // MARK: - Init from SubscriptionPeriod.Unit
+    // MARK: Init from Product.SubscriptionPeriod.Unit
 
-    @Suite("init from SubscriptionPeriod.Unit", .tags(.enumMapping))
+    @Suite("init from Product.SubscriptionPeriod.Unit")
     struct InitTests {
-        @Test("maps day to day")
-        func mapsDayToDay() {
-            #expect(IAPSubscriptionPeriodUnit(.day) == .day)
-        }
-
-        @Test("maps month to month")
-        func mapsMonthToMonth() {
-            #expect(IAPSubscriptionPeriodUnit(.month) == .month)
-        }
-
-        @Test("maps week to week")
-        func mapsWeekToWeek() {
-            #expect(IAPSubscriptionPeriodUnit(.week) == .week)
-        }
-
-        @Test("maps year to year")
-        func mapsYearToYear() {
-            #expect(IAPSubscriptionPeriodUnit(.year) == .year)
+        @Test(
+            "maps StoreKit unit to expected case",
+            arguments: [
+                (Product.SubscriptionPeriod.Unit.day, IAPSubscriptionPeriodUnit.day),
+                (Product.SubscriptionPeriod.Unit.week, IAPSubscriptionPeriodUnit.week),
+                (Product.SubscriptionPeriod.Unit.month, IAPSubscriptionPeriodUnit.month),
+                (Product.SubscriptionPeriod.Unit.year, IAPSubscriptionPeriodUnit.year),
+            ]
+        )
+        func mapsStoreKitUnitToExpectedCase(
+            _ unit: Product.SubscriptionPeriod.Unit,
+            expectedUnit: IAPSubscriptionPeriodUnit
+        ) {
+            #expect(IAPSubscriptionPeriodUnit(unit) == expectedUnit)
         }
     }
 
-    // MARK: - Description
+    // MARK: Description
 
-    @Suite("description", .tags(.properties))
+    @Suite("description")
     struct DescriptionTests {
         @Test(
             "returns expected description string",
             arguments: [
+                (IAPSubscriptionPeriodUnit.undefined, "undefined"),
                 (IAPSubscriptionPeriodUnit.day, "day"),
                 (IAPSubscriptionPeriodUnit.month, "month"),
                 (IAPSubscriptionPeriodUnit.week, "week"),
                 (IAPSubscriptionPeriodUnit.year, "year"),
-                (IAPSubscriptionPeriodUnit.undefined, "undefined"),
             ]
         )
         func returnsExpectedDescriptionString(_ unit: IAPSubscriptionPeriodUnit, expectedDescription: String) {

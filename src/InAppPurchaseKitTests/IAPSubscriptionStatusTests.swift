@@ -10,13 +10,11 @@ import StoreKit
 import Testing
 @testable import InAppPurchaseKit
 
-// MARK: - IAPSubscriptionRenewalStateTests
-
-@Suite("IAPSubscriptionRenewalState", .tags(.enumMapping, .properties))
+@Suite("IAPSubscriptionRenewalState")
 struct IAPSubscriptionRenewalStateTests {
-    // MARK: - Raw Values
+    // MARK: Raw Values
 
-    @Suite("raw values", .tags(.enumMapping, .properties))
+    @Suite("raw values")
     struct RawValueTests {
         @Test(
             "has expected raw value",
@@ -34,44 +32,34 @@ struct IAPSubscriptionRenewalStateTests {
         }
     }
 
-    // MARK: - Init from Product.SubscriptionInfo.RenewalState
+    // MARK: Init from Product.SubscriptionInfo.RenewalState
 
-    @Suite("init from Product.SubscriptionInfo.RenewalState", .tags(.enumMapping))
+    @Suite("init from Product.SubscriptionInfo.RenewalState")
     struct InitFromRenewalStateTests {
-        @Test("maps subscribed to subscribed")
-        func mapsSubscribedToSubscribed() {
-            #expect(IAPSubscriptionRenewalState(.subscribed) == .subscribed)
-        }
+        typealias RenewalState = Product.SubscriptionInfo.RenewalState
 
-        @Test("maps inGracePeriod to inGracePeriod")
-        func mapsInGracePeriodToInGracePeriod() {
-            #expect(IAPSubscriptionRenewalState(.inGracePeriod) == .inGracePeriod)
-        }
-
-        @Test("maps expired to expired")
-        func mapsExpiredToExpired() {
-            #expect(IAPSubscriptionRenewalState(.expired) == .expired)
-        }
-
-        @Test("maps inBillingRetryPeriod to inBillingRetryPeriod")
-        func mapsInBillingRetryPeriodToInBillingRetryPeriod() {
-            #expect(IAPSubscriptionRenewalState(.inBillingRetryPeriod) == .inBillingRetryPeriod)
-        }
-
-        @Test("maps revoked to revoked")
-        func mapsRevokedToRevoked() {
-            #expect(IAPSubscriptionRenewalState(.revoked) == .revoked)
-        }
-
-        @Test("maps nil to undefined")
-        func mapsNilToUndefined() {
-            #expect(IAPSubscriptionRenewalState(nil) == .undefined)
+        @Test(
+            "maps StoreKit renewal state to expected case",
+            arguments: [
+                (RenewalState?.some(.subscribed), IAPSubscriptionRenewalState.subscribed),
+                (RenewalState?.some(.inGracePeriod), IAPSubscriptionRenewalState.inGracePeriod),
+                (RenewalState?.some(.expired), IAPSubscriptionRenewalState.expired),
+                (RenewalState?.some(.inBillingRetryPeriod), IAPSubscriptionRenewalState.inBillingRetryPeriod),
+                (RenewalState?.some(.revoked), IAPSubscriptionRenewalState.revoked),
+                (RenewalState?.none, IAPSubscriptionRenewalState.undefined),
+            ]
+        )
+        func mapsStoreKitRenewalStateToExpectedCase(
+            _ state: RenewalState?,
+            expectedState: IAPSubscriptionRenewalState
+        ) {
+            #expect(IAPSubscriptionRenewalState(state) == expectedState)
         }
     }
 
-    // MARK: - Description
+    // MARK: Description
 
-    @Suite("description", .tags(.properties))
+    @Suite("description")
     struct DescriptionTests {
         @Test(
             "returns expected description string",
@@ -90,13 +78,11 @@ struct IAPSubscriptionRenewalStateTests {
     }
 }
 
-// MARK: - IAPSubscriptionExpirationReasonTests
-
-@Suite("IAPSubscriptionExpirationReason", .tags(.enumMapping, .properties))
+@Suite("IAPSubscriptionExpirationReason")
 struct IAPSubscriptionExpirationReasonTests {
-    // MARK: - Raw Values
+    // MARK: Raw Values
 
-    @Suite("raw values", .tags(.enumMapping, .properties))
+    @Suite("raw values")
     struct RawValueTests {
         @Test(
             "has expected raw value",
@@ -114,44 +100,37 @@ struct IAPSubscriptionExpirationReasonTests {
         }
     }
 
-    // MARK: - Init from Product.SubscriptionInfo.RenewalInfo.ExpirationReason
+    // MARK: Init from Product.SubscriptionInfo.RenewalInfo.ExpirationReason
 
-    @Suite("init from Product.SubscriptionInfo.RenewalInfo.ExpirationReason", .tags(.enumMapping))
+    @Suite("init from Product.SubscriptionInfo.RenewalInfo.ExpirationReason")
     struct InitFromExpirationReasonTests {
-        @Test("maps autoRenewDisabled to autoRenewDisabled")
-        func mapsAutoRenewDisabledToAutoRenewDisabled() {
-            #expect(IAPSubscriptionExpirationReason(.autoRenewDisabled) == .autoRenewDisabled)
-        }
+        typealias ExpirationReason = Product.SubscriptionInfo.RenewalInfo.ExpirationReason
 
-        @Test("maps billingError to billingError")
-        func mapsBillingErrorToBillingError() {
-            #expect(IAPSubscriptionExpirationReason(.billingError) == .billingError)
-        }
-
-        @Test("maps didNotConsentToPriceIncrease to didNotConsentToPriceIncrease")
-        func mapsDidNotConsentToPriceIncreaseToDidNotConsentToPriceIncrease() {
-            #expect(IAPSubscriptionExpirationReason(.didNotConsentToPriceIncrease) == .didNotConsentToPriceIncrease)
-        }
-
-        @Test("maps productUnavailable to productUnavailable")
-        func mapsProductUnavailableToProductUnavailable() {
-            #expect(IAPSubscriptionExpirationReason(.productUnavailable) == .productUnavailable)
-        }
-
-        @Test("maps unknown to unknown")
-        func mapsUnknownToUnknown() {
-            #expect(IAPSubscriptionExpirationReason(.unknown) == .unknown)
-        }
-
-        @Test("maps nil to none")
-        func mapsNilToNone() {
-            #expect(IAPSubscriptionExpirationReason(nil) == .none)
+        @Test(
+            "maps StoreKit expiration reason to expected case",
+            arguments: [
+                (ExpirationReason?.some(.autoRenewDisabled), IAPSubscriptionExpirationReason.autoRenewDisabled),
+                (ExpirationReason?.some(.billingError), IAPSubscriptionExpirationReason.billingError),
+                (
+                    ExpirationReason?.some(.didNotConsentToPriceIncrease),
+                    IAPSubscriptionExpirationReason.didNotConsentToPriceIncrease
+                ),
+                (ExpirationReason?.some(.productUnavailable), IAPSubscriptionExpirationReason.productUnavailable),
+                (ExpirationReason?.some(.unknown), IAPSubscriptionExpirationReason.unknown),
+                (ExpirationReason?.none, IAPSubscriptionExpirationReason.none),
+            ]
+        )
+        func mapsStoreKitExpirationReasonToExpectedCase(
+            _ reason: ExpirationReason?,
+            expectedReason: IAPSubscriptionExpirationReason
+        ) {
+            #expect(IAPSubscriptionExpirationReason(reason) == expectedReason)
         }
     }
 
-    // MARK: - Description
+    // MARK: Description
 
-    @Suite("description", .tags(.properties))
+    @Suite("description")
     struct DescriptionTests {
         @Test(
             "returns expected description string",

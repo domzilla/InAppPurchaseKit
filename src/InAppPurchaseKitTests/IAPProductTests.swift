@@ -10,13 +10,11 @@ import StoreKit
 import Testing
 @testable import InAppPurchaseKit
 
-// MARK: - IAPProductTypeTests
-
-@Suite("IAPProductType", .tags(.enumMapping, .properties))
+@Suite("IAPProductType")
 struct IAPProductTypeTests {
-    // MARK: - Raw Values
+    // MARK: Raw Values
 
-    @Suite("raw values", .tags(.enumMapping, .properties))
+    @Suite("raw values")
     struct RawValueTests {
         @Test(
             "has expected raw value",
@@ -33,34 +31,30 @@ struct IAPProductTypeTests {
         }
     }
 
-    // MARK: - Init from Product.ProductType
+    // MARK: Init from Product.ProductType
 
-    @Suite("init from Product.ProductType", .tags(.enumMapping))
+    @Suite("init from Product.ProductType")
     struct InitFromProductTypeTests {
-        @Test("maps consumable to consumable")
-        func mapsConsumableToConsumable() {
-            #expect(IAPProductType(.consumable) == .consumable)
-        }
-
-        @Test("maps nonConsumable to nonConsumable")
-        func mapsNonConsumableToNonConsumable() {
-            #expect(IAPProductType(.nonConsumable) == .nonConsumable)
-        }
-
-        @Test("maps nonRenewable to nonRenewable")
-        func mapsNonRenewableToNonRenewable() {
-            #expect(IAPProductType(.nonRenewable) == .nonRenewable)
-        }
-
-        @Test("maps autoRenewable to autoRenewable")
-        func mapsAutoRenewableToAutoRenewable() {
-            #expect(IAPProductType(.autoRenewable) == .autoRenewable)
+        @Test(
+            "maps StoreKit product type to expected case",
+            arguments: [
+                (Product.ProductType.consumable, IAPProductType.consumable),
+                (Product.ProductType.nonConsumable, IAPProductType.nonConsumable),
+                (Product.ProductType.nonRenewable, IAPProductType.nonRenewable),
+                (Product.ProductType.autoRenewable, IAPProductType.autoRenewable),
+            ]
+        )
+        func mapsStoreKitProductTypeToExpectedCase(
+            _ productType: Product.ProductType,
+            expectedProductType: IAPProductType
+        ) {
+            #expect(IAPProductType(productType) == expectedProductType)
         }
     }
 
-    // MARK: - Description
+    // MARK: Description
 
-    @Suite("description", .tags(.stringParsing, .properties))
+    @Suite("description")
     struct DescriptionTests {
         @Test(
             "returns expected description string",
@@ -78,13 +72,11 @@ struct IAPProductTypeTests {
     }
 }
 
-// MARK: - IAPPaymentModeTests
-
-@Suite("IAPPaymentMode", .tags(.enumMapping, .properties))
+@Suite("IAPPaymentMode")
 struct IAPPaymentModeTests {
-    // MARK: - Raw Values
+    // MARK: Raw Values
 
-    @Suite("raw values", .tags(.enumMapping, .properties))
+    @Suite("raw values")
     struct RawValueTests {
         @Test(
             "has expected raw value",
@@ -100,40 +92,24 @@ struct IAPPaymentModeTests {
         }
     }
 
-    // MARK: - Init from String
+    // MARK: Init from String
 
-    @Suite("init from String", .tags(.stringParsing))
+    @Suite("init from String")
     struct InitFromStringTests {
         @Test(
-            "maps valid lowercase string to expected payment mode",
+            "maps snake_case string case-insensitively to expected payment mode",
             arguments: [
                 ("free_trial", IAPPaymentMode.freeTrial),
                 ("pay_as_you_go", IAPPaymentMode.payAsYouGo),
                 ("pay_up_front", IAPPaymentMode.payUpFront),
+                ("FREE_TRIAL", IAPPaymentMode.freeTrial),
+                ("Free_Trial", IAPPaymentMode.freeTrial),
+                ("PAY_AS_YOU_GO", IAPPaymentMode.payAsYouGo),
+                ("PAY_UP_FRONT", IAPPaymentMode.payUpFront),
             ]
         )
-        func mapsValidStringToExpectedPaymentMode(_ input: String, expectedMode: IAPPaymentMode) {
+        func mapsStringToExpectedPaymentMode(_ input: String, expectedMode: IAPPaymentMode) {
             #expect(IAPPaymentMode(input) == expectedMode)
-        }
-
-        @Test("maps uppercased FREE_TRIAL to freeTrial")
-        func mapsUppercasedFreeTrialToFreeTrial() {
-            #expect(IAPPaymentMode("FREE_TRIAL") == .freeTrial)
-        }
-
-        @Test("maps mixed-case Free_Trial to freeTrial")
-        func mapsMixedCaseFreeTrialToFreeTrial() {
-            #expect(IAPPaymentMode("Free_Trial") == .freeTrial)
-        }
-
-        @Test("maps uppercased PAY_AS_YOU_GO to payAsYouGo")
-        func mapsUppercasedPayAsYouGoToPayAsYouGo() {
-            #expect(IAPPaymentMode("PAY_AS_YOU_GO") == .payAsYouGo)
-        }
-
-        @Test("maps uppercased PAY_UP_FRONT to payUpFront")
-        func mapsUppercasedPayUpFrontToPayUpFront() {
-            #expect(IAPPaymentMode("PAY_UP_FRONT") == .payUpFront)
         }
 
         @Test(
@@ -145,63 +121,50 @@ struct IAPPaymentModeTests {
         }
     }
 
-    // MARK: - Init from Product.SubscriptionOffer.PaymentMode
+    // MARK: Init from Product.SubscriptionOffer.PaymentMode
 
-    @Suite("init from Product.SubscriptionOffer.PaymentMode", .tags(.enumMapping))
+    @Suite("init from Product.SubscriptionOffer.PaymentMode")
     struct InitFromSubscriptionOfferPaymentModeTests {
-        @Test("maps freeTrial to freeTrial")
-        func mapsFreeTrialToFreeTrial() {
-            #expect(IAPPaymentMode(Product.SubscriptionOffer.PaymentMode.freeTrial) == .freeTrial)
-        }
-
-        @Test("maps payAsYouGo to payAsYouGo")
-        func mapsPayAsYouGoToPayAsYouGo() {
-            #expect(IAPPaymentMode(Product.SubscriptionOffer.PaymentMode.payAsYouGo) == .payAsYouGo)
-        }
-
-        @Test("maps payUpFront to payUpFront")
-        func mapsPayUpFrontToPayUpFront() {
-            #expect(IAPPaymentMode(Product.SubscriptionOffer.PaymentMode.payUpFront) == .payUpFront)
+        @Test(
+            "maps StoreKit payment mode to expected case",
+            arguments: [
+                (Product.SubscriptionOffer.PaymentMode.freeTrial, IAPPaymentMode.freeTrial),
+                (Product.SubscriptionOffer.PaymentMode.payAsYouGo, IAPPaymentMode.payAsYouGo),
+                (Product.SubscriptionOffer.PaymentMode.payUpFront, IAPPaymentMode.payUpFront),
+            ]
+        )
+        func mapsStoreKitPaymentModeToExpectedCase(
+            _ paymentMode: Product.SubscriptionOffer.PaymentMode,
+            expectedMode: IAPPaymentMode
+        ) {
+            #expect(IAPPaymentMode(paymentMode) == expectedMode)
         }
     }
 
-    // MARK: - Init from Transaction.Offer.PaymentMode
+    // MARK: Init from Transaction.Offer.PaymentMode
 
-    @Suite("init from Transaction.Offer.PaymentMode", .tags(.enumMapping))
+    @Suite("init from Transaction.Offer.PaymentMode")
     struct InitFromTransactionOfferPaymentModeTests {
-        @Test("maps freeTrial to freeTrial")
-        func mapsFreeTrialToFreeTrial() {
-            if #available(iOS 17.2, macOS 14.2, tvOS 17.2, watchOS 10.2, visionOS 1.1, *) {
-                #expect(IAPPaymentMode(Transaction.Offer.PaymentMode.freeTrial) == .freeTrial)
-            }
-        }
-
-        @Test("maps payAsYouGo to payAsYouGo")
-        func mapsPayAsYouGoToPayAsYouGo() {
-            if #available(iOS 17.2, macOS 14.2, tvOS 17.2, watchOS 10.2, visionOS 1.1, *) {
-                #expect(IAPPaymentMode(Transaction.Offer.PaymentMode.payAsYouGo) == .payAsYouGo)
-            }
-        }
-
-        @Test("maps payUpFront to payUpFront")
-        func mapsPayUpFrontToPayUpFront() {
-            if #available(iOS 17.2, macOS 14.2, tvOS 17.2, watchOS 10.2, visionOS 1.1, *) {
-                #expect(IAPPaymentMode(Transaction.Offer.PaymentMode.payUpFront) == .payUpFront)
-            }
-        }
-
-        @Test("maps nil to undefined")
-        func mapsNilToUndefined() {
-            if #available(iOS 17.2, macOS 14.2, tvOS 17.2, watchOS 10.2, visionOS 1.1, *) {
-                let mode: Transaction.Offer.PaymentMode? = nil
-                #expect(IAPPaymentMode(mode) == .undefined)
-            }
+        @Test(
+            "maps StoreKit payment mode to expected case",
+            arguments: [
+                (Transaction.Offer.PaymentMode?.some(.freeTrial), IAPPaymentMode.freeTrial),
+                (Transaction.Offer.PaymentMode?.some(.payAsYouGo), IAPPaymentMode.payAsYouGo),
+                (Transaction.Offer.PaymentMode?.some(.payUpFront), IAPPaymentMode.payUpFront),
+                (Transaction.Offer.PaymentMode?.none, IAPPaymentMode.undefined),
+            ]
+        )
+        func mapsStoreKitPaymentModeToExpectedCase(
+            _ paymentMode: Transaction.Offer.PaymentMode?,
+            expectedMode: IAPPaymentMode
+        ) {
+            #expect(IAPPaymentMode(paymentMode) == expectedMode)
         }
     }
 
-    // MARK: - Description
+    // MARK: Description
 
-    @Suite("description", .tags(.stringParsing, .properties))
+    @Suite("description")
     struct DescriptionTests {
         @Test(
             "returns expected description string",
@@ -215,16 +178,31 @@ struct IAPPaymentModeTests {
         func returnsExpectedDescriptionString(_ paymentMode: IAPPaymentMode, expectedDescription: String) {
             #expect(paymentMode.description == expectedDescription)
         }
+
+        @Test(
+            "LosslessStringConvertible round-trip produces the same case",
+            arguments: [
+                IAPPaymentMode.undefined,
+                IAPPaymentMode.freeTrial,
+                IAPPaymentMode.payAsYouGo,
+                IAPPaymentMode.payUpFront,
+            ]
+        )
+        func roundTripProducesSameCase(_ paymentMode: IAPPaymentMode) {
+            withKnownIssue("Framework bug: description is camelCase but init(_: String) only parses snake_case") {
+                #expect(IAPPaymentMode(paymentMode.description) == paymentMode)
+            } when: {
+                paymentMode != .undefined
+            }
+        }
     }
 }
 
-// MARK: - IAPPurchaseResultTests
-
-@Suite("IAPPurchaseResult", .tags(.enumMapping, .properties))
+@Suite("IAPPurchaseResult")
 struct IAPPurchaseResultTests {
-    // MARK: - Raw Values
+    // MARK: Raw Values
 
-    @Suite("raw values", .tags(.enumMapping, .properties))
+    @Suite("raw values")
     struct RawValueTests {
         @Test(
             "has expected raw value",
@@ -240,28 +218,30 @@ struct IAPPurchaseResultTests {
         }
     }
 
-    // MARK: - Init from Product.PurchaseResult
+    // MARK: Init from Product.PurchaseResult
 
-    @Suite("init from Product.PurchaseResult", .tags(.enumMapping))
+    /// `.success` is not covered: it needs a `VerificationResult<Transaction>`, which only a live StoreKit session
+    /// can produce.
+    @Suite("init from Product.PurchaseResult")
     struct InitFromPurchaseResultTests {
-        // NOTE: .success requires a VerificationResult<Transaction> which cannot be constructed
-        // in a unit test context without a live StoreKit session. Only .userCancelled and
-        // .pending are directly constructible and are tested here.
-
-        @Test("maps userCancelled to userCancelled")
-        func mapsUserCancelledToUserCancelled() {
-            #expect(IAPPurchaseResult(Product.PurchaseResult.userCancelled) == .userCancelled)
-        }
-
-        @Test("maps pending to pending")
-        func mapsPendingToPending() {
-            #expect(IAPPurchaseResult(Product.PurchaseResult.pending) == .pending)
+        @Test(
+            "maps StoreKit purchase result to expected case",
+            arguments: [
+                (Product.PurchaseResult.userCancelled, IAPPurchaseResult.userCancelled),
+                (Product.PurchaseResult.pending, IAPPurchaseResult.pending),
+            ]
+        )
+        func mapsStoreKitPurchaseResultToExpectedCase(
+            _ purchaseResult: Product.PurchaseResult,
+            expectedResult: IAPPurchaseResult
+        ) {
+            #expect(IAPPurchaseResult(purchaseResult) == expectedResult)
         }
     }
 
-    // MARK: - Description
+    // MARK: Description
 
-    @Suite("description", .tags(.stringParsing, .properties))
+    @Suite("description")
     struct DescriptionTests {
         @Test(
             "returns expected description string",

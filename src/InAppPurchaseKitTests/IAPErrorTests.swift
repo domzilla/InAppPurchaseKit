@@ -10,13 +10,11 @@ import StoreKit
 import Testing
 @testable import InAppPurchaseKit
 
-// MARK: - IAPErrorTests
-
-@Suite("IAPError", .tags(.errorHandling))
+@Suite("IAPError")
 struct IAPErrorTests {
-    // MARK: - IAPErrorCode Raw Values
+    // MARK: IAPErrorCode Raw Values
 
-    @Suite("IAPErrorCode raw values", .tags(.enumMapping, .properties))
+    @Suite("IAPErrorCode raw values")
     struct IAPErrorCodeRawValueTests {
         @Test(
             "has expected raw value",
@@ -34,55 +32,34 @@ struct IAPErrorTests {
         }
     }
 
-    // MARK: - errorCodeFromStoreKitError Mapping
+    // MARK: errorCodeFromStoreKitError Mapping
 
-    @Suite("errorCodeFromStoreKitError()", .tags(.errorHandling, .enumMapping))
+    @Suite("errorCodeFromStoreKitError(error:)")
     struct ErrorCodeMappingTests {
         @Test("returns unknown for nil error")
         func returnsUnknownForNilError() {
-            let result = IAPError.errorCodeFromStoreKitError(error: nil)
-            #expect(result == .unknown)
+            #expect(IAPError.errorCodeFromStoreKitError(error: nil) == .unknown)
         }
 
         @Test("returns unknown for non-StoreKit error")
         func returnsUnknownForNonStoreKitError() {
-            let error = NSError(domain: "test", code: 0)
-            let result = IAPError.errorCodeFromStoreKitError(error: error)
-            #expect(result == .unknown)
+            let error = URLError(.notConnectedToInternet)
+            #expect(IAPError.errorCodeFromStoreKitError(error: error) == .unknown)
         }
 
-        @Test("maps networkError to networkError code")
-        func mapsNetworkErrorToNetworkErrorCode() {
-            let underlyingError = URLError(.notConnectedToInternet)
-            let storeKitError = StoreKitError.networkError(underlyingError)
-            let result = IAPError.errorCodeFromStoreKitError(error: storeKitError)
-            #expect(result == .networkError)
-        }
-
-        @Test("maps systemError to systemError code")
-        func mapsSystemErrorToSystemErrorCode() {
-            let underlyingError = NSError(domain: "test", code: 0)
-            let storeKitError = StoreKitError.systemError(underlyingError)
-            let result = IAPError.errorCodeFromStoreKitError(error: storeKitError)
-            #expect(result == .systemError)
-        }
-
-        @Test("maps userCancelled to userCancelled code")
-        func mapsUserCancelledToUserCancelledCode() {
-            let result = IAPError.errorCodeFromStoreKitError(error: StoreKitError.userCancelled)
-            #expect(result == .userCancelled)
-        }
-
-        @Test("maps notAvailableInStorefront to notAvailableInStorefront code")
-        func mapsNotAvailableInStorefrontToNotAvailableInStorefrontCode() {
-            let result = IAPError.errorCodeFromStoreKitError(error: StoreKitError.notAvailableInStorefront)
-            #expect(result == .notAvailableInStorefront)
-        }
-
-        @Test("maps notEntitled to notEntitled code")
-        func mapsNotEntitledToNotEntitledCode() {
-            let result = IAPError.errorCodeFromStoreKitError(error: StoreKitError.notEntitled)
-            #expect(result == .notEntitled)
+        @Test(
+            "maps StoreKitError to expected code",
+            arguments: [
+                (StoreKitError.networkError(URLError(.notConnectedToInternet)), IAPErrorCode.networkError),
+                (StoreKitError.systemError(URLError(.unknown)), IAPErrorCode.systemError),
+                (StoreKitError.userCancelled, IAPErrorCode.userCancelled),
+                (StoreKitError.notAvailableInStorefront, IAPErrorCode.notAvailableInStorefront),
+                (StoreKitError.notEntitled, IAPErrorCode.notEntitled),
+                (StoreKitError.unknown, IAPErrorCode.unknown),
+            ]
+        )
+        func mapsStoreKitErrorToExpectedCode(_ storeKitError: StoreKitError, expectedErrorCode: IAPErrorCode) {
+            #expect(IAPError.errorCodeFromStoreKitError(error: storeKitError) == expectedErrorCode)
         }
     }
 }

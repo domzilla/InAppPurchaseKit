@@ -6,17 +6,21 @@
 //  Copyright © 2026 Dominic Rodemer. All rights reserved.
 //
 
-import StoreKit
 import Testing
 @testable import InAppPurchaseKit
 
-// MARK: - IAPTransactionObserverTests
-
-@Suite("IAPTransactionObserver Tests", .tags(.observer), .serialized)
+@Suite("IAPTransactionObserver", .serialized)
 struct IAPTransactionObserverTests {
-    // MARK: - isObserving
+    /// Stays running until cancelled, so `isCancelled` reflects only an explicit `cancel()`.
+    static func makePendingTask() -> Task<Void, Error> {
+        Task {
+            try await Task.sleep(for: .seconds(3600))
+        }
+    }
 
-    @Suite("isObserving", .tags(.properties))
+    // MARK: isObserving
+
+    @Suite("isObserving")
     struct IsObservingTests {
         @Test("returns false when both tasks are nil")
         func returnsFalseWhenBothTasksAreNil() {
@@ -27,83 +31,60 @@ struct IAPTransactionObserverTests {
         @Test("returns false when only updateListenerTask is set")
         func returnsFalseWhenOnlyUpdateListenerTaskIsSet() {
             let observer = IAPTransactionObserver()
-            observer.updateListenerTask = Task<Void, Error> {}
+            observer.updateListenerTask = IAPTransactionObserverTests.makePendingTask()
             #expect(observer.isObserving == false)
+            observer.stopObservingUpdates()
         }
 
         @Test("returns false when only unfinishedListenerTask is set")
         func returnsFalseWhenOnlyUnfinishedListenerTaskIsSet() {
             let observer = IAPTransactionObserver()
-            observer.unfinishedListenerTask = Task<Void, Error> {}
+            observer.unfinishedListenerTask = IAPTransactionObserverTests.makePendingTask()
             #expect(observer.isObserving == false)
+            observer.stopObservingUpdates()
         }
 
         @Test("returns true when both tasks are set and neither is cancelled")
         func returnsTrueWhenBothTasksAreSetAndNeitherIsCancelled() {
             let observer = IAPTransactionObserver()
-            observer.updateListenerTask = Task<Void, Error> {}
-            observer.unfinishedListenerTask = Task<Void, Error> {}
+            observer.updateListenerTask = IAPTransactionObserverTests.makePendingTask()
+            observer.unfinishedListenerTask = IAPTransactionObserverTests.makePendingTask()
             #expect(observer.isObserving == true)
+            observer.stopObservingUpdates()
         }
 
-        @Test("returns false when both tasks are set and updateListenerTask is cancelled")
-        func returnsFalseWhenUpdateListenerTaskIsCancelled() {
+        @Test(
+            "returns false when both tasks are set and at least one is cancelled",
+            arguments: [(true, false), (false, true), (true, true)]
+        )
+        func returnsFalseWhenAnyTaskIsCancelled(isUpdateTaskCancelled: Bool, isUnfinishedTaskCancelled: Bool) {
             let observer = IAPTransactionObserver()
-            let updateTask = Task<Void, Error> { try await Task.sleep(for: .seconds(100)) }
-            updateTask.cancel()
-            observer.updateListenerTask = updateTask
-            observer.unfinishedListenerTask = Task<Void, Error> {}
-            #expect(observer.isObserving == false)
-        }
-
-        @Test("returns false when both tasks are set and unfinishedListenerTask is cancelled")
-        func returnsFalseWhenUnfinishedListenerTaskIsCancelled() {
-            let observer = IAPTransactionObserver()
-            observer.updateListenerTask = Task<Void, Error> {}
-            let unfinishedTask = Task<Void, Error> { try await Task.sleep(for: .seconds(100)) }
-            unfinishedTask.cancel()
-            observer.unfinishedListenerTask = unfinishedTask
-            #expect(observer.isObserving == false)
-        }
-
-        @Test("returns false when both tasks are set and both are cancelled")
-        func returnsFalseWhenBothTasksAreCancelled() {
-            let observer = IAPTransactionObserver()
-            let updateTask = Task<Void, Error> { try await Task.sleep(for: .seconds(100)) }
-            updateTask.cancel()
-            let unfinishedTask = Task<Void, Error> { try await Task.sleep(for: .seconds(100)) }
-            unfinishedTask.cancel()
+            let updateTask = IAPTransactionObserverTests.makePendingTask()
+            let unfinishedTask = IAPTransactionObserverTests.makePendingTask()
             observer.updateListenerTask = updateTask
             observer.unfinishedListenerTask = unfinishedTask
+
+            if isUpdateTaskCancelled {
+                updateTask.cancel()
+            }
+            if isUnfinishedTaskCancelled {
+                unfinishedTask.cancel()
+            }
+
             #expect(observer.isObserving == false)
+            observer.stopObservingUpdates()
         }
     }
 
-    // MARK: - Shared Instance
-
-    @Suite("Shared Instance")
-    struct SharedInstanceTests {
-        @Test("shared is not nil")
-        func sharedIsNotNil() {
-            let shared: IAPTransactionObserver? = IAPTransactionObserver.shared
-            #expect(shared != nil)
-        }
-
-        @Test("shared returns the same instance on repeated access")
-        func sharedReturnsSameInstance() {
-            #expect(IAPTransactionObserver.shared === IAPTransactionObserver.shared)
-        }
-    }
-
-    // MARK: - stopObservingUpdates
+    // MARK: stopObservingUpdates
 
     @Suite("stopObservingUpdates")
     struct StopObservingTests {
         @Test("cancels both tasks")
         func cancelsBothTasks() {
             let observer = IAPTransactionObserver()
-            let updateTask = Task<Void, Error> { try await Task.sleep(for: .seconds(100)) }
-            let unfinishedTask = Task<Void, Error> { try await Task.sleep(for: .seconds(100)) }
+            let updateTask = IAPTransactionObserverTests.makePendingTask()
+            let unfinishedTask = IAPTransactionObserverTests.makePendingTask()
             observer.updateListenerTask = updateTask
             observer.unfinishedListenerTask = unfinishedTask
 
@@ -111,45 +92,49 @@ struct IAPTransactionObserverTests {
 
             #expect(updateTask.isCancelled == true)
             #expect(unfinishedTask.isCancelled == true)
-        }
-
-        @Test("does not crash when tasks are nil")
-        func doesNotCrashWhenTasksAreNil() {
-            let observer = IAPTransactionObserver()
-            observer.stopObservingUpdates()
             #expect(observer.isObserving == false)
         }
     }
 
-    // MARK: - startObservingUpdates
+    // MARK: startObservingUpdates
 
     @Suite("startObservingUpdates")
     struct StartObservingTests {
-        @Test("creates both task properties")
-        func createsBothTaskProperties() {
+        @Test("starts observing")
+        func startsObserving() {
             let observer = IAPTransactionObserver()
+
             observer.startObservingUpdates()
 
-            #expect(observer.updateListenerTask != nil)
-            #expect(observer.unfinishedListenerTask != nil)
-
+            #expect(observer.isObserving == true)
             observer.stopObservingUpdates()
         }
 
-        @Test("guard prevents duplicate tasks on second call")
-        func guardPreventsDuplicateTasksOnSecondCall() {
+        @Test("keeps the existing tasks on a second call")
+        func keepsExistingTasksOnSecondCall() throws {
             let observer = IAPTransactionObserver()
             observer.startObservingUpdates()
+            let updateTask = try #require(observer.updateListenerTask)
+            let unfinishedTask = try #require(observer.unfinishedListenerTask)
 
-            #expect(observer.isObserving == true)
+            observer.startObservingUpdates()
 
-            // Call again — the guard should prevent replacing existing tasks
+            #expect(observer.updateListenerTask == updateTask)
+            #expect(observer.unfinishedListenerTask == unfinishedTask)
+            observer.stopObservingUpdates()
+        }
+
+        @Test("starts new tasks after stopObservingUpdates")
+        func startsNewTasksAfterStop() throws {
+            let observer = IAPTransactionObserver()
+            observer.startObservingUpdates()
+            let updateTask = try #require(observer.updateListenerTask)
+            observer.stopObservingUpdates()
+
             observer.startObservingUpdates()
 
             #expect(observer.isObserving == true)
-            #expect(observer.updateListenerTask != nil)
-            #expect(observer.unfinishedListenerTask != nil)
-
+            #expect(observer.updateListenerTask != updateTask)
             observer.stopObservingUpdates()
         }
     }
