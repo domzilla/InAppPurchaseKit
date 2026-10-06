@@ -244,9 +244,7 @@ public class IAPProduct: NSObject {
     /// The decimal value of the product price in the user's local currency.
     @objc public let price: Decimal
 
-    /// The subscription information for this product, or `nil` if the product is not a subscription.
-    ///
-    /// - Note: This property is only populated for products of type `.nonRenewable` or `.autoRenewable`.
+    /// The subscription information for this product, or `nil` if the product is not an auto-renewable subscription.
     @objc public let subscription: IAPSubscriptionInfo?
 
     /// A Boolean value that indicates whether this product is available for Family Sharing.
@@ -279,7 +277,7 @@ public class IAPProduct: NSObject {
 
     // MARK: - -
 
-    /// A detailed textual representation of the product, including all public properties.
+    /// A detailed textual representation of the product.
     ///
     /// - Returns: A multi-line string containing the product ID, type, display name,
     ///   description, display price, price, and subscription info.
@@ -307,8 +305,9 @@ public class IAPProduct: NSObject {
     /// `Product` instances into `IAPProduct` objects.
     ///
     /// - Parameter identifiers: An array of product identifier strings configured in App Store Connect.
-    /// - Returns: An array of `IAPProduct` objects matching the given identifiers, or `nil` if no products are found.
-    /// - Throws: An error if the App Store request fails (e.g., network issues or invalid identifiers).
+    /// - Returns: An array of `IAPProduct` objects matching the given identifiers. Unknown identifiers are
+    ///   omitted; the array is empty if no products are found.
+    /// - Throws: An error if the App Store request fails (e.g., network issues).
     @objc
     public static func products(for identifiers: [String]) async throws -> [IAPProduct]? {
         do {
@@ -331,7 +330,8 @@ public class IAPProduct: NSObject {
     /// On success, the transaction is automatically verified and finished before being returned.
     ///
     /// - Returns: A tuple containing the verified ``IAPTransaction`` (or `nil` if the purchase did not
-    ///   succeed) and the ``IAPPurchaseResult`` indicating the outcome.
+    ///   succeed) and the ``IAPPurchaseResult`` indicating the outcome. If verification fails, returns
+    ///   `nil` and ``IAPPurchaseResult/undefined``.
     /// - Throws: An error if the purchase request fails (e.g., StoreKit errors or network issues).
     ///
     /// - Note: The transaction is automatically finished on success. Do not call `finish()` again.
@@ -355,8 +355,7 @@ public class IAPProduct: NSObject {
     ///   succeed) and the ``IAPPurchaseResult`` indicating the outcome.
     /// - Throws: An error if the purchase request fails (e.g., StoreKit errors or network issues).
     ///
-    /// - Note: Available on iOS 17.0+, tvOS 17.0+, and visionOS 1.0+ only.
-    ///   The transaction is automatically finished on success.
+    /// - Note: Available on iOS 17.0+ only. The transaction is automatically finished on success.
     @available(iOS 17.0, tvOS 17.0, visionOS 1.0, *)
     @objc
     public func purchase(confirmIn scene: UIScene) async throws -> (IAPTransaction?, IAPPurchaseResult) {

@@ -37,8 +37,8 @@ public class IAPTransactionObserver: NSObject {
 
     /// A Boolean value indicating whether the observer is currently listening for transaction updates.
     ///
-    /// Returns `true` when both the update listener task and the unfinished listener task are active
-    /// and have not been cancelled. Returns `false` if either task is `nil` or has been cancelled.
+    /// Returns `true` when both the update listener task and the unfinished listener task have been
+    /// started and not cancelled. Returns `false` if either task is `nil` or has been cancelled.
     @objc public var isObserving: Bool {
         guard let updatesTask = self.updateListenerTask else {
             return false

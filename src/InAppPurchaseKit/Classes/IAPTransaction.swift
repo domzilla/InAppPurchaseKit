@@ -247,7 +247,7 @@ public class IAPTransaction: NSObject {
 
     /// The web order line item identifier, if available.
     ///
-    /// This value is populated for transactions that originate from a web-based purchase flow.
+    /// Identifies subscription purchase events, including renewals, across devices.
     @objc public let webOrderLineItemID: String?
 
     /// The bundle identifier of the app that the transaction belongs to.
