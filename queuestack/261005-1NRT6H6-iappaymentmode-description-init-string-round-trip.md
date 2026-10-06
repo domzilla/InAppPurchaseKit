@@ -10,6 +10,10 @@ labels:
 
 > **Note:** Produced during an autonomous agent run (test-suite review, 2026-10-05) and not verified by a human. This may be totally wrong — analyze and confirm before fixing.
 
+## Parent
+
+261006-0RTYF81
+
 ## Problem
 
 `IAPPaymentMode` conforms to `LosslessStringConvertible` (`src/InAppPurchaseKit/Classes/IAPProduct.swift:76`), but:
