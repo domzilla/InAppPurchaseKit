@@ -28,11 +28,11 @@ struct IAPTransactionObserverTests {
             #expect(observer.isObserving == false)
         }
 
-        @Test("returns false when only updateListenerTask is set")
-        func returnsFalseWhenOnlyUpdateListenerTaskIsSet() {
+        @Test("returns true when only updateListenerTask is set")
+        func returnsTrueWhenOnlyUpdateListenerTaskIsSet() {
             let observer = IAPTransactionObserver()
             observer.updateListenerTask = IAPTransactionObserverTests.makePendingTask()
-            #expect(observer.isObserving == false)
+            #expect(observer.isObserving == true)
             observer.stopObservingUpdates()
         }
 
@@ -53,25 +53,46 @@ struct IAPTransactionObserverTests {
             observer.stopObservingUpdates()
         }
 
-        @Test(
-            "returns false when both tasks are set and at least one is cancelled",
-            arguments: [(true, false), (false, true), (true, true)]
-        )
-        func returnsFalseWhenAnyTaskIsCancelled(isUpdateTaskCancelled: Bool, isUnfinishedTaskCancelled: Bool) {
+        @Test("returns false when updateListenerTask is cancelled", arguments: [false, true])
+        func returnsFalseWhenUpdateTaskIsCancelled(isUnfinishedTaskCancelled: Bool) {
             let observer = IAPTransactionObserver()
             let updateTask = IAPTransactionObserverTests.makePendingTask()
             let unfinishedTask = IAPTransactionObserverTests.makePendingTask()
             observer.updateListenerTask = updateTask
             observer.unfinishedListenerTask = unfinishedTask
 
-            if isUpdateTaskCancelled {
-                updateTask.cancel()
-            }
+            updateTask.cancel()
             if isUnfinishedTaskCancelled {
                 unfinishedTask.cancel()
             }
 
             #expect(observer.isObserving == false)
+            observer.stopObservingUpdates()
+        }
+
+        @Test("returns true when only unfinishedListenerTask is cancelled")
+        func returnsTrueWhenOnlyUnfinishedTaskIsCancelled() {
+            let observer = IAPTransactionObserver()
+            let unfinishedTask = IAPTransactionObserverTests.makePendingTask()
+            observer.updateListenerTask = IAPTransactionObserverTests.makePendingTask()
+            observer.unfinishedListenerTask = unfinishedTask
+
+            unfinishedTask.cancel()
+
+            #expect(observer.isObserving == true)
+            observer.stopObservingUpdates()
+        }
+
+        @Test("returns true after unfinishedListenerTask completes")
+        func returnsTrueAfterUnfinishedTaskCompletes() async {
+            let observer = IAPTransactionObserver()
+            let unfinishedTask = Task<Void, Error> {}
+            observer.updateListenerTask = IAPTransactionObserverTests.makePendingTask()
+            observer.unfinishedListenerTask = unfinishedTask
+
+            _ = await unfinishedTask.result
+
+            #expect(observer.isObserving == true)
             observer.stopObservingUpdates()
         }
     }

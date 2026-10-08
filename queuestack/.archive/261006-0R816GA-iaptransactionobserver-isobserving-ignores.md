@@ -3,10 +3,11 @@ id: '261006-0R816GA'
 title: IAPTransactionObserver.isObserving ignores finished listener tasks
 author: Dominic Rodemer
 created_at: '2026-10-06T06:53:53.262487Z'
-status: open
+status: closed
 labels:
 - bug
 ---
+
 
 > **Note:** Agent-generated from an automated doc/code review. This may be a false positive — analyze and confirm against the code before fixing.
 
