@@ -10,6 +10,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Documentation for all public APIs.
 - Tests covering `IAPSubscriptionPeriodUnit` raw values, mapping, and descriptions.
 
+### Fixed
+- `IAPTransaction.offer` is now `nil` on OS versions before iOS 17.2 / macOS 14.2 when no offer was applied, instead of an undefined offer.
+
 ## [November 2025]
 
 ### Changed

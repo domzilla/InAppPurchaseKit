@@ -125,8 +125,7 @@ public class IAPOffer: NSObject {
     ///
     /// - Parameter transaction: The StoreKit `Transaction` to extract offer data from.
     /// - Returns: An ``IAPOffer`` instance if the transaction has an associated offer, or `nil`
-    ///   if no offer was applied. On earlier OS versions an instance is always returned
-    ///   (with ``IAPOfferType/undefined`` if no offer was applied).
+    ///   if no offer was applied.
     public static func fromTransaction(_ transaction: Transaction) -> IAPOffer? {
         let id: String?
         let type: IAPOfferType
@@ -141,6 +140,10 @@ public class IAPOffer: NSObject {
             type = IAPOfferType(offer.type)
             paymentMode = IAPPaymentMode(offer.paymentMode)
         } else {
+            guard transaction.offerType != nil else {
+                return nil
+            }
+
             id = transaction.offerID
             type = IAPOfferType(transaction.offerType)
             if let offerPaymentModeStringRepresentation = transaction.offerPaymentModeStringRepresentation {
