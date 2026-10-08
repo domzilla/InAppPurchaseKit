@@ -123,24 +123,33 @@ public enum IAPPaymentMode: Int, LosslessStringConvertible {
         }
     }
 
-    /// Creates an `IAPPaymentMode` from a snake_case string representation.
+    /// Creates an `IAPPaymentMode` from its `description` or from a snake_case string representation.
     ///
-    /// Supported string values (case-insensitive):
-    /// - `"free_trial"` maps to `.freeTrial`
-    /// - `"pay_as_you_go"` maps to `.payAsYouGo`
-    /// - `"pay_up_front"` maps to `.payUpFront`
+    /// Supported string values:
+    /// - `"freeTrial"` or `"free_trial"` (case-insensitive) maps to `.freeTrial`
+    /// - `"payAsYouGo"` or `"pay_as_you_go"` (case-insensitive) maps to `.payAsYouGo`
+    /// - `"payUpFront"` or `"pay_up_front"` (case-insensitive) maps to `.payUpFront`
     ///
-    /// - Parameter description: A snake_case string representing the payment mode.
+    /// - Parameter description: A string representing the payment mode.
     public init(_ description: String) {
-        switch description.lowercased() {
-        case "free_trial":
+        switch description {
+        case "freeTrial":
             self = .freeTrial
-        case "pay_as_you_go":
+        case "payAsYouGo":
             self = .payAsYouGo
-        case "pay_up_front":
+        case "payUpFront":
             self = .payUpFront
         default:
-            self = .undefined
+            switch description.lowercased() {
+            case "free_trial":
+                self = .freeTrial
+            case "pay_as_you_go":
+                self = .payAsYouGo
+            case "pay_up_front":
+                self = .payUpFront
+            default:
+                self = .undefined
+            }
         }
     }
 

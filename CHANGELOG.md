@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 - `IAPTransaction.offer` is now `nil` on OS versions before iOS 17.2 / macOS 14.2 when no offer was applied, instead of an undefined offer.
+- `IAPPaymentMode` now round-trips through its `description`: initializing from `"freeTrial"`, `"payAsYouGo"` or `"payUpFront"` no longer yields `.undefined`.
 
 ## [November 2025]
 

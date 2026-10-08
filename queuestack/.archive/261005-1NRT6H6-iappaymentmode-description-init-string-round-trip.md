@@ -3,10 +3,11 @@ id: '261005-1NRT6H6'
 title: IAPPaymentMode description/init(String) round-trip broken
 author: Dominic Rodemer
 created_at: '2026-10-05T15:17:46.631793Z'
-status: open
+status: closed
 labels:
 - bug
 ---
+
 
 > **Note:** Produced during an autonomous agent run (test-suite review, 2026-10-05) and not verified by a human. This may be totally wrong — analyze and confirm before fixing.
 

@@ -189,11 +189,7 @@ struct IAPPaymentModeTests {
             ]
         )
         func roundTripProducesSameCase(_ paymentMode: IAPPaymentMode) {
-            withKnownIssue("Framework bug: description is camelCase but init(_: String) only parses snake_case") {
-                #expect(IAPPaymentMode(paymentMode.description) == paymentMode)
-            } when: {
-                paymentMode != .undefined
-            }
+            #expect(IAPPaymentMode(paymentMode.description) == paymentMode)
         }
     }
 }
