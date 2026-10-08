@@ -22,9 +22,6 @@
 
 /* Begin PBXFileReference section */
 		F2412B312F4CAF1E00BE45E0 /* InAppPurchaseKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = InAppPurchaseKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F2412D0D2F4CAFB900BE45E0 /* BGFoundation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BGFoundation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F2412D0E2F4CAFB900BE45E0 /* DZIAPKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DZIAPKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F2412D0F2F4CAFB900BE45E0 /* DZUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = DZUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2AF78912F5439BA00E0FBCA /* InAppPurchaseKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InAppPurchaseKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -76,9 +73,6 @@
 		F2412D0C2F4CAFB900BE45E0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F2412D0D2F4CAFB900BE45E0 /* BGFoundation.framework */,
-				F2412D0E2F4CAFB900BE45E0 /* DZIAPKit.framework */,
-				F2412D0F2F4CAFB900BE45E0 /* DZUIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
